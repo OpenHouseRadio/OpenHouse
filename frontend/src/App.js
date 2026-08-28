@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Play, Pause, ArrowRight, ArrowUpRight, Instagram, Mail } from "lucide-react";
 import { PlayerProvider, usePlayer } from "@/lib/player";
-import Nav, { INSTAGRAM_URL, CONTACT_EMAIL } from "@/components/Nav";
+import Nav, { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
@@ -240,6 +240,29 @@ function GetInvolved() {
               @openhouse_radio
             </a>
           </div>
+          <p className="mt-8 text-sm text-paper/60">
+            Already around? Join the conversation on{" "}
+            <a
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="involved-discord-link"
+              className="link-underline text-sage"
+            >
+              Discord
+            </a>{" "}
+            or{" "}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="involved-whatsapp-link"
+              className="link-underline text-sage"
+            >
+              WhatsApp
+            </a>
+            .
+          </p>
         </Reveal>
         <Reveal delay={0.15} className="hidden lg:col-span-4 lg:block">
           <DoorDoodle className="mx-auto w-full max-w-[280px]" />

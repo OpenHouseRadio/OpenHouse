@@ -1,5 +1,5 @@
-import { Asterisk, ArrowUpRight } from "lucide-react";
-import { INSTAGRAM_URL, CONTACT_EMAIL } from "./Nav";
+import { ArrowUpRight } from "lucide-react";
+import { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "./Nav";
 
 export default function Footer() {
   return (
@@ -7,10 +7,11 @@ export default function Footer() {
       <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-8 md:py-24">
         <div className="flex flex-col gap-12 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="flex items-center gap-1.5 font-display text-3xl font-bold tracking-tight">
-              Open House
-              <Asterisk className="h-5 w-5 text-sagedeep" strokeWidth={2} />
-            </p>
+            <img
+              src="/open-house-wordmark.png"
+              alt="Open House"
+              className="h-16 w-auto md:h-20"
+            />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-inksoft">
               An independent online radio and culture platform — currently taking shape.
             </p>
@@ -37,7 +38,31 @@ export default function Footer() {
                   data-testid="footer-instagram"
                   className="group flex items-center gap-1 text-ink transition-colors duration-300 hover:text-sagedeep"
                 >
-                  @openhouse_radio
+                  Instagram — @openhouse_radio
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={DISCORD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="footer-discord"
+                  className="group flex items-center gap-1 text-ink transition-colors duration-300 hover:text-sagedeep"
+                >
+                  Discord — come chat
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="footer-whatsapp"
+                  className="group flex items-center gap-1 text-ink transition-colors duration-300 hover:text-sagedeep"
+                >
+                  WhatsApp — the group chat
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </li>

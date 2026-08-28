@@ -1,8 +1,10 @@
-import { Play, Pause, Asterisk, Instagram, Mail } from "lucide-react";
+import { Play, Pause, Instagram, Mail, MessagesSquare, MessageCircle } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/openhouse_radio";
 export const CONTACT_EMAIL = "david@openhouseradio.co.uk";
+export const DISCORD_URL = "https://discord.gg/AGsudUcFn";
+export const WHATSAPP_URL = "https://chat.whatsapp.com/Ex5aXILwwxj6mBkxcczlxe?mode=gi_t";
 
 export default function Nav() {
   const { playing, toggle } = usePlayer();
@@ -13,13 +15,12 @@ export default function Nav() {
       className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-xl"
     >
       <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-8 md:h-20">
-        <a
-          href="#top"
-          data-testid="nav-logo"
-          className="flex items-center gap-1.5 font-display text-lg font-bold tracking-tight md:text-xl"
-        >
-          Open House
-          <Asterisk className="h-4 w-4 text-sagedeep" strokeWidth={2} />
+        <a href="#top" data-testid="nav-logo" className="flex items-center" aria-label="Open House — home">
+          <img
+            src="/open-house-wordmark.png"
+            alt="Open House"
+            className="h-9 w-auto transition-transform duration-300 hover:-rotate-2 md:h-11"
+          />
         </a>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -40,6 +41,26 @@ export default function Nav() {
             className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink sm:block"
           >
             <Mail className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          </a>
+          <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="nav-discord"
+            aria-label="Open House on Discord"
+            className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink sm:block"
+          >
+            <MessagesSquare className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          </a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="nav-whatsapp"
+            aria-label="Open House on WhatsApp"
+            className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink sm:block"
+          >
+            <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
           </a>
           <button
             onClick={toggle}
