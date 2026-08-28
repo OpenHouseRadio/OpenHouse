@@ -13,13 +13,13 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)'
             },
             colors: {
-                paper: '#F9F8F6',
-                surface: '#F2EFE9',
+                paper: '#FDF8EF',
+                surface: '#F5EEDF',
                 ink: '#1C1C1A',
                 inksoft: '#6B6A66',
-                sage: '#A3B19B',
-                sagedeep: '#8E9E86',
-                line: '#E6E4E0',
+                sage: '#C67656',
+                sagedeep: '#A85D40',
+                line: '#EAE2D2',
                 coal: '#252523',
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',

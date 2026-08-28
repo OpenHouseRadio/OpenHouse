@@ -10,9 +10,9 @@ import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
+import { RadioDoodle, DoorDoodle } from "@/components/Doodle";
 
-const HERO_IMG = "https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?q=80&w=1400&auto=format&fit=crop";
-const LISTEN_IMG = "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=1400&auto=format&fit=crop";
+const MARK_IMG = "/open-house-mark.png";
 
 function Hero() {
   const { open } = usePlayer();
@@ -69,12 +69,12 @@ function Hero() {
 
         <div className="relative lg:col-span-4">
           <FadeIn delay={0.5} className="h-full">
-            <div className="relative h-72 overflow-hidden sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[130%]">
+            <div className="relative h-80 overflow-hidden sm:h-[26rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[130%]">
               <motion.img
-                src={HERO_IMG}
-                alt="A record player in warm natural light"
+                src={MARK_IMG}
+                alt="Hand-drawn Open House mark — a little house with an open door"
                 style={{ y: imgY }}
-                className="h-[115%] w-full object-cover"
+                className="h-[115%] w-full object-contain"
                 data-testid="hero-image"
               />
             </div>
@@ -116,17 +116,16 @@ function ListenSection() {
           data-testid="live-player-module"
           className="grid overflow-hidden border border-line bg-coal text-paper md:grid-cols-12"
         >
-          <div className="relative overflow-hidden md:col-span-5">
-            <motion.img
-              src={LISTEN_IMG}
-              alt="Piano keys in soft daylight"
-              className="h-64 w-full object-cover opacity-90 grayscale-[40%] md:h-full"
-              initial={{ scale: 1.1 }}
-              whileInView={{ scale: 1 }}
+          <div className="relative flex items-center justify-center overflow-hidden p-10 md:col-span-5 md:p-14">
+            <motion.div
+              initial={{ opacity: 0, y: 28, rotate: -2 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-            />
-            <div className="absolute inset-0 bg-coal/20" />
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-sm"
+            >
+              <RadioDoodle className="w-full" />
+            </motion.div>
           </div>
 
           <div className="flex flex-col justify-between gap-10 p-8 md:col-span-7 md:p-14">
@@ -210,8 +209,8 @@ function GetInvolved() {
   return (
     <section id="get-involved" className="scroll-mt-24 bg-coal text-paper" data-testid="get-involved-section">
       <Marquee dark items={["Host a Show", "Share a Mix", "Join the Conversation", "The Door Is Open"]} />
-      <div className="mx-auto max-w-[1600px] px-4 py-24 sm:px-8 md:py-36">
-        <Reveal>
+      <div className="mx-auto grid max-w-[1600px] gap-12 px-4 py-24 sm:px-8 md:py-36 lg:grid-cols-12 lg:items-center">
+        <Reveal className="lg:col-span-8">
           <p className="mb-6 text-xs uppercase tracking-[0.25em] text-sage">Get involved</p>
           <h2 className="max-w-4xl font-display text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
             Host a show with us.
@@ -241,6 +240,9 @@ function GetInvolved() {
               @openhouse_radio
             </a>
           </div>
+        </Reveal>
+        <Reveal delay={0.15} className="hidden lg:col-span-4 lg:block">
+          <DoorDoodle className="mx-auto w-full max-w-[280px]" />
         </Reveal>
       </div>
     </section>
