@@ -1,0 +1,177 @@
+{
+  "brand": {
+    "name": "Open House",
+    "vibe": "Sleek, laid-back, editorial-style, gallery-meets-record-shop, welcoming, open, calm, social, creative, effortlessly cool, minimal but warm.",
+    "archetype": "Organic & Earthy mixed with Swiss & High-Contrast (soft editorial restraint)",
+    "mission": "An independent online radio station and cultural platform focused on music, art, creative projects, community, and emerging talent."
+  },
+  "typography": {
+    "instructions_to_main_agent": "Import these fonts via Google Fonts. Use them strictly as defined. Do not use generic fonts like Inter, Roboto, or Space Grotesk. Enable fluid typography scaling for oversized headings.",
+    "primary": {
+      "family": "'Outfit', sans-serif",
+      "usage": "Headings, massive typography moments, bold statements",
+      "weights": ["400", "500", "700", "900"]
+    },
+    "secondary": {
+      "family": "'Manrope', sans-serif",
+      "usage": "Body copy, UI elements, labels, buttons",
+      "weights": ["400", "500"]
+    },
+    "accent": {
+      "family": "'Newsreader', serif",
+      "usage": "Emphasis, pull quotes, manifesto numbers, subtle editorial touches",
+      "weights": ["400", "400i"]
+    },
+    "scale": {
+      "h1": "text-6xl md:text-[8vw] leading-[0.9] tracking-tighter font-black uppercase",
+      "h2": "text-4xl md:text-6xl leading-tight tracking-tight font-bold",
+      "h3": "text-2xl md:text-3xl leading-snug font-medium",
+      "h4": "text-lg uppercase tracking-[0.1em] font-semibold",
+      "body": "text-base md:text-lg leading-relaxed font-secondary",
+      "quote": "text-2xl md:text-4xl font-accent italic leading-tight text-primary/80",
+      "label": "text-xs md:text-sm uppercase tracking-[0.15em] font-secondary font-medium"
+    }
+  },
+  "colors": {
+    "instructions_to_main_agent": "Stick strictly to this palette. The design requires a soft, premium off-white background with charcoal text. Do not use pure white (#FFFFFF) or pure black (#000000). Use the accent color purposefully for hovers, subtle highlights, or callout cards.",
+    "palette": {
+      "background": "#F9F8F6",
+      "surface": "#F2EFE9",
+      "text_primary": "#1C1C1A",
+      "text_secondary": "#6B6A66",
+      "accent": "#A3B19B",
+      "accent_hover": "#8E9E86",
+      "border": "#E6E4E0",
+      "player_dark": "#252523",
+      "player_dark_text": "#F9F8F6"
+    }
+  },
+  "visual_enhancers": {
+    "instructions_to_main_agent": "Prioritize a physical, tactile feel without skeuomorphism. Subtle grain and precise borders.",
+    "textures": "Subtle noise overlay on the primary background (opacity 1.5%).",
+    "borders": "1px solid #E6E4E0 for structural grids and cards. No drop shadows.",
+    "radii": "rounded-none or minimal rounded-sm (2px) to maintain editorial rigidness.",
+    "images": "Real photography treated deliberately. Use grayscale filtering on hover, or spotlight masking. Crop images cleanly."
+  },
+  "layout": {
+    "instructions_to_main_agent": "Embrace whitespace. Use a structured grid with deliberate asymmetry. Use generous padding (p-8 to p-24).",
+    "grid": "grid-cols-4 md:grid-cols-12 gap-6 md:gap-8",
+    "container": "max-w-[1600px] mx-auto px-4 sm:px-8",
+    "spacing": {
+      "section_y": "py-20 md:py-32",
+      "element_y": "mb-8 md:mb-12"
+    }
+  },
+  "motion": {
+    "instructions_to_main_agent": "Use framer-motion and lenis for a premium Awwwards-level feel. All motion must be purposeful, not distracting.",
+    "libraries": ["framer-motion", "@studio-freight/lenis"],
+    "hero_reveal": "Masked line-by-line reveal for the H1 on page load (y: '100%' to '0%', staggerChildren: 0.1, duration: 1s, ease: [0.76, 0, 0.24, 1]).",
+    "scroll": "Smooth scrolling via Lenis. Subtle parallax on hero image and major section images (y: -10% to 10% based on scroll progress).",
+    "hover": "Image zoom (scale 1.05) within overflow-hidden containers. Text links: custom underline animation (scale-x 0 to 1 origin-left).",
+    "marquee": "Slow editorial marquee for the 'OPEN HOUSE' brand statement or current schedule."
+  },
+  "components": {
+    "instructions_to_main_agent": "Build custom components with these specific structural rules. Avoid default Shadcn styles; heavily customize them to fit the editorial aesthetic.",
+    "navigation": {
+      "type": "Sticky minimal nav",
+      "style": "fixed top-0 w-full z-50 backdrop-blur-xl bg-[#F9F8F6]/80 border-b border-[#E6E4E0] transition-colors duration-300",
+      "layout": "Flex space-between, wordmark left, links center (desktop), Listen Live CTA right.",
+      "note": "Never use a fully transparent background for the nav."
+    },
+    "buttons": {
+      "primary": "bg-text_primary text-background px-8 py-3 uppercase tracking-widest text-sm hover:bg-accent hover:text-text_primary transition-colors duration-300",
+      "secondary": "border border-text_primary text-text_primary px-8 py-3 uppercase tracking-widest text-sm hover:bg-surface transition-colors duration-300"
+    },
+    "cards": {
+      "style": "bg-surface border border-border p-6 flex flex-col gap-4 group cursor-pointer transition-colors hover:bg-[#F9F8F6]",
+      "image": "aspect-square w-full object-cover overflow-hidden relative",
+      "typography": "h3 for title, label for category/genre."
+    },
+    "radio_player": {
+      "style": "bg-player_dark text-player_dark_text p-6 flex items-center justify-between border-t border-player_dark/10",
+      "placeholder": "Radio.co embed placeholder UI. Include Play/Pause button, 'Live Now' pulsing indicator (red/accent), Show Title, Host."
+    },
+    "forms": {
+      "style": "Minimalist inputs. border-b border-text_primary bg-transparent py-4 focus:outline-none focus:border-accent placeholder:text-text_secondary font-secondary transition-colors"
+    }
+  },
+  "pages": {
+    "home": [
+      "Hero: Large kinetic typography 'OPEN HOUSE' (framer-motion masked reveal), brand statement marquee, absolute positioned 'Listen Live' floating badge.",
+      "Live Now: Radio player module anchored or in a prominent distinct section.",
+      "Upcoming Schedule Preview: Clean list layout (Time | Show | Host) with hover line-throughs or highlights.",
+      "Featured Shows: 3-column bento/grid of editorial cards.",
+      "Featured Projects: Asymmetrical grid showcasing community art/culture.",
+      "About Teaser: Large serif quote and read more link.",
+      "Community CTA: Full width split section (Pitch a Show / Submit Project)."
+    ],
+    "radio": [
+      "Player: Large embedded player placeholder (Radio.co).",
+      "Live Now: Prominent display of current playing track/show.",
+      "Schedule: Full weekly schedule in an accordion or structured table format.",
+      "Residents: Grid of featured resident DJs with circular or pill-shaped clipped portraits."
+    ],
+    "shows": [
+      "Directory: Curated programme grid. Filter tabs (Music, Talk, Guest Mix).",
+      "Cards: Show artwork, host name, genre."
+    ],
+    "projects": [
+      "Grid: Masonry layout of community creative work.",
+      "Categories: Horizontal scrolling or sticky filter list (Music, Art, Events, Film, Photography, Fashion)."
+    ],
+    "about": [
+      "Manifesto: Numbered chapters using the accent Serif font (e.g., '01. The Mission').",
+      "Story: Editorial text layout with generous margins and inset imagery."
+    ],
+    "submit": [
+      "Forms: Two minimal forms side-by-side or tabbed ('Pitch a Show' vs 'Submit a Project')."
+    ]
+  },
+  "accessibility": {
+    "contrast": "Ensure text_primary and text_secondary meet APCA/WCAG AA contrast against background and surface.",
+    "testing": "All interactive elements (links, buttons, forms, player controls) MUST include a 'data-testid' attribute (e.g., data-testid='listen-live-btn').",
+    "motion": "Respect prefers-reduced-motion for all framer-motion animations."
+  },
+  "media": {
+    "instructions_to_main_agent": "Use these specific images for the designated sections to maintain the candid, cultural, non-corporate vibe.",
+    "images": {
+      "hero_background": {
+        "url": "https://images.unsplash.com/photo-1642177437932-75d846ad48f3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwzfHxjYW5kaWQlMjBESiUyMHN0dWRpb3xlbnwwfHx8fDE3ODc5MTcyODJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Close up of mixing board, candid DJ studio vibe (hero abstract or featured show)"
+      },
+      "featured_show_1": {
+        "url": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHw0fHx2aW55bCUyMHJlY29yZCUyMHBsYXlpbmd8ZW58MHx8fHwxNzg3OTE3Mjk0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Vinyl record spinning (perfect for show artwork)"
+      },
+      "featured_show_2": {
+        "url": "https://images.unsplash.com/photo-1573154622954-b5fae2c1eed8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHw0fHx2aW55bCUyMHJlY29yZCUyMHBsYXlpbmd8ZW58MHx8fHwxNzg3OTE3Mjg5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Vintage radio equipment (aesthetic show artwork)"
+      },
+      "featured_project_1": {
+        "url": "https://images.unsplash.com/photo-1606819717115-9159c900370b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxhcnQlMjBnYWxsZXJ5JTIweW91dGh8ZW58MHx8fHwxNzg3OTE3Mjg2fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Woman in gallery (Project artwork - Art category)"
+      },
+      "about_manifesto": {
+        "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHwyfHxjcmVhdGl2ZSUyMGNvbnZlcnNhdGlvbiUyMGNvZmZlZXxlbnwwfHx8fDE3ODc5MTcyOTh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Creative conversation (Community/About section)"
+      }
+    }
+  },
+  "dependencies_to_install": [
+    "framer-motion",
+    "@studio-freight/lenis",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "universal_guidelines": {
+    "1": "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "2": "Create depth through layered design elements. Use strict grids but intentionally break them with overlapping elements.",
+    "3": "Do NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements like button, input excluding transforms.",
+    "4": "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations.",
+    "5": "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "6": "All interactive and key informational elements MUST include a 'data-testid' attribute.",
+    "7": "Do not center align the app container. Align text left by default.",
+    "8": "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 for icons."
+  }
+}
