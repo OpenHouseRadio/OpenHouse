@@ -38,7 +38,6 @@ Build a sleek, laid-back, editorial-style website for "Open House" — an indepe
 - All content served from MongoDB seed data (CMS-friendly via API)
 
 ## Backlog / Next Tasks
-- P0: Swap SUBMISSION_NOTIFY_EMAIL for the owner's real inbox (currently test address)
 - P1: Radio.co live player + schedule widget embeds (slots ready on Radio page)
 - P1: Admin/CMS view to edit shows, projects, schedule without code
 - P2: Events, Archive, Residents pages (nav/footer already reference them)
