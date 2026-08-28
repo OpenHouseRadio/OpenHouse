@@ -11,8 +11,8 @@ import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 
-const HERO_IMG = "https://images.unsplash.com/photo-1642177437932-75d846ad48f3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwzfHxjYW5kaWQlMjBESiUyMHN0dWRpb3xlbnwwfHx8fDE3ODc5MTcyODJ8MA&ixlib=rb-4.1.0&q=85";
-const LISTEN_IMG = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1400&auto=format&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?q=80&w=1400&auto=format&fit=crop";
+const LISTEN_IMG = "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=1400&auto=format&fit=crop";
 
 function Hero() {
   const { open } = usePlayer();
@@ -72,7 +72,7 @@ function Hero() {
             <div className="relative h-72 overflow-hidden sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[130%]">
               <motion.img
                 src={HERO_IMG}
-                alt="Hands on a mixing desk in the studio"
+                alt="A record player in warm natural light"
                 style={{ y: imgY }}
                 className="h-[115%] w-full object-cover"
                 data-testid="hero-image"
@@ -119,7 +119,7 @@ function ListenSection() {
           <div className="relative overflow-hidden md:col-span-5">
             <motion.img
               src={LISTEN_IMG}
-              alt="The Open House studio mixing desk"
+              alt="Piano keys in soft daylight"
               className="h-64 w-full object-cover opacity-90 grayscale-[40%] md:h-full"
               initial={{ scale: 1.1 }}
               whileInView={{ scale: 1 }}
