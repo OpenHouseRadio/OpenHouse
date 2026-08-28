@@ -99,7 +99,8 @@ function Hero() {
 }
 
 function ListenSection() {
-  const { playing, toggle } = usePlayer();
+  const { playing, toggle, now } = usePlayer();
+  const hasTrack = now?.onAir && (now.title || now.artist);
 
   return (
     <section id="listen" className="mx-auto max-w-[1600px] scroll-mt-24 px-4 py-20 sm:px-8 md:py-32" data-testid="listen-section">
@@ -148,6 +149,35 @@ function ListenSection() {
                 One continuous stream from the studio — early selections, test broadcasts
                 and the sounds of a station finding its feet. Press play and keep us company.
               </p>
+
+              {hasTrack ? (
+                <div
+                  className="mt-8 flex items-center gap-4 border-t border-paper/15 pt-6"
+                  data-testid="now-playing"
+                >
+                  {now.artwork && (
+                    <img
+                      src={now.artwork}
+                      alt={`${now.title} artwork`}
+                      className="h-14 w-14 shrink-0 object-cover grayscale-[30%]"
+                    />
+                  )}
+                  <div className="min-w-0">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-sage">Now Playing</p>
+                    <p className="mt-1 truncate font-display text-lg font-medium" data-testid="now-playing-title">
+                      {now.title}
+                      {now.artist ? ` — ${now.artist}` : ""}
+                    </p>
+                    {now.dj && (
+                      <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-paper/50">Live: {now.dj}</p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <p className="mt-8 border-t border-paper/15 pt-6 text-[10px] uppercase tracking-[0.25em] text-paper/40" data-testid="now-playing-idle">
+                  {now?.onAir ? "On air — track info on its way" : "Currently between broadcasts"}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center gap-6">

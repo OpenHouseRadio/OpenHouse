@@ -3,7 +3,10 @@ import { Play, Pause, X } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
 export default function PlayerBar() {
-  const { on, playing, toggle, close } = usePlayer();
+  const { on, playing, toggle, close, now } = usePlayer();
+  const trackLine = now?.onAir && now?.title
+    ? `${now.title}${now.artist ? ` — ${now.artist}` : ""}`
+    : "Open House Radio — Live Stream";
 
   return (
     <AnimatePresence>
@@ -42,7 +45,7 @@ export default function PlayerBar() {
                 {playing ? "Live Now" : "Paused"}
               </p>
               <p className="truncate font-display text-sm font-medium md:text-base" data-testid="player-show-title">
-                Open House Radio — Live Stream
+                {trackLine}
               </p>
             </div>
 

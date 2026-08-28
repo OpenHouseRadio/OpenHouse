@@ -22,9 +22,9 @@ Simplified to a SINGLE-PAGE launch/landing page. No backend, no database, no REA
 - 2026-08-28: Full 6-page editorial site with FastAPI/MongoDB backend, submissions + Resend email notifications
 - 2026-08-28: Submission notifications routed to owner's inbox
 - 2026-08-28: Simplified to standalone single-page landing; real Radio.co stream wired into player; real Instagram and contact email; .env gitignored; backend/multi-page code removed from frontend bundle
+- 2026-08-28: Now Playing — Radio.co public API (public.radio.co/api/v2/seb9792770: track/current + status + source, no key, CORS *) polled every 30s in player context; Listen section shows artwork + track/artist + live DJ name when on air, graceful "Currently between broadcasts" when off air; player bar shows live track line
 
 ## Backlog / Next Tasks
-- P1: Deploy to Vercel (frontend is self-contained; no env vars required)
-- P1: Radio.co now-playing metadata (track/show titles) via their public API
+- P1: Deploy to Vercel + custom domain openhouseradio.co.uk (guide delivered to user 2026-08-28; user-side: GitHub push, Vercel import with root=frontend, DNS A/CNAME records)
 - P2: Grow back into multi-page site (Shows, Projects, About, Submit) when the brand is ready — the previous components are in git history
 - P2: Newsletter signup
