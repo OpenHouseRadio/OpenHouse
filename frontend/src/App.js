@@ -40,17 +40,9 @@ function Hero() {
           </h1>
 
           <FadeIn delay={0.65}>
-            <div className="mt-10 space-y-3">
-              <p className="max-w-xl font-serifaccent text-2xl italic leading-snug text-ink/80 md:text-3xl">
-                If you're into it, there's a show in it.
-              </p>
-              <p className="max-w-xl font-serifaccent text-2xl italic leading-snug text-ink/80 md:pl-10 md:text-3xl">
-                A laptop, a mic and an idea is enough.
-              </p>
-              <p className="max-w-xl font-serifaccent text-2xl italic leading-snug text-sagedeep md:pl-20 md:text-3xl">
-                Open House is open.
-              </p>
-            </div>
+            <p className="mt-10 max-w-xl font-serifaccent text-2xl italic leading-snug text-sagedeep md:text-3xl">
+              Open House is open.
+            </p>
             <p className="mt-8 max-w-xl text-sm leading-relaxed text-inksoft md:text-base">
               Music, art, food, fashion, football, film, books, nightlife, politics, weird
               niche interests — whatever you care about enough to talk about. Shows about
