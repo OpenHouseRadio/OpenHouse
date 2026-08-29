@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "@/App.css";
 import Lenis from "lenis";
 import { useEffect } from "react";
@@ -11,9 +11,6 @@ import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
-
-// Radio.co schedule widget (from Radio.co dashboard → Widgets → Schedule → Share).
-const SCHEDULE_WIDGET_ID = "es54da380";
 
 const MARK_IMG = "/open-house-mark.png";
 
@@ -209,63 +206,92 @@ function ListenSection() {
 }
 
 function ScheduleSection() {
-  const frameRef = useRef(null);
+  const [events, setEvents] = useState(null);
 
   useEffect(() => {
-    const onMessage = (e) => {
-      if (!e.origin.includes("embed.radio.co")) return;
-      let data = e.data;
-      if (typeof data === "string") {
-        try {
-          data = JSON.parse(data);
-        } catch {
-          return;
-        }
-      }
-      if (Array.isArray(data) && data[0] === `${SCHEDULE_WIDGET_ID}.setHeight` && frameRef.current) {
-        frameRef.current.style.height = `${data[1]}px`;
-      }
+    let alive = true;
+    const load = () =>
+      fetch("https://public.radio.co/stations/seb9792770/embed/schedule", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error("schedule fetch failed"))))
+        .then((d) => alive && setEvents(Array.isArray(d.data) ? d.data : []))
+        .catch(() => alive && setEvents([]));
+    load();
+    const t = setInterval(load, 300000);
+    return () => {
+      alive = false;
+      clearInterval(t);
     };
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
   }, []);
 
-  const onLoad = () => {
-    if (frameRef.current?.contentWindow) {
-      setTimeout(() => {
-        frameRef.current?.contentWindow?.postMessage(
-          JSON.stringify(["parent", window.location.href]),
-          "https://embed.radio.co"
-        );
-      }, 1000);
-    }
+  const fmtDay = (iso) => new Date(iso).toLocaleDateString("en-GB", { weekday: "long" });
+  const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const fmtTime = (iso) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  const isLive = (start, end) => {
+    const n = Date.now();
+    return n >= new Date(start).getTime() && n < new Date(end).getTime();
   };
+
+  const upcoming = (events || [])
+    .filter((e) => new Date(e.end).getTime() > Date.now())
+    .slice(0, 7);
 
   return (
     <section id="schedule" className="border-y border-line bg-surface" data-testid="schedule-section">
       <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-8 md:py-28">
-        <Reveal className="mb-12">
-          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">The programme</p>
-          <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="schedule-heading">
-            This Week
-          </h2>
+        <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">The programme</p>
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="schedule-heading">
+              This Week
+            </h2>
+          </div>
+          <p className="flex items-center gap-2 pb-2 text-xs uppercase tracking-[0.2em] text-inksoft">
+            <span className="h-1.5 w-1.5 rounded-full bg-sagedeep" />
+            Synced live with the studio
+          </p>
         </Reveal>
 
         <Reveal>
           <div className="border border-line bg-paper p-6 sm:p-10 md:p-14">
-            {SCHEDULE_WIDGET_ID ? (
-              <iframe
-                ref={frameRef}
-                onLoad={onLoad}
-                data-testid="schedule-widget"
-                src={`https://embed.radio.co/embeds/schedule/${SCHEDULE_WIDGET_ID}.html`}
-                title="Open House weekly broadcast schedule"
-                width="100%"
-                height="600"
-                scrolling="no"
-                style={{ border: "none", overflow: "hidden" }}
-                allow="autoplay"
-              />
+            {upcoming.length > 0 ? (
+              <div className="border-t border-line" data-testid="schedule-list">
+                {upcoming.map((ev, i) => {
+                  const live = isLive(ev.start, ev.end);
+                  const title = ev.playlist?.title || ev.playlist?.name || "Open House";
+                  const host = ev.playlist?.artist;
+                  return (
+                    <div
+                      key={ev.event_id || i}
+                      data-testid={`schedule-row-${i}`}
+                      className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 border-b border-line py-5 md:grid-cols-[180px_160px_1fr_auto] md:px-2"
+                    >
+                      <span className="text-xs uppercase tracking-[0.2em] text-inksoft">
+                        {fmtDay(ev.start)} <span className="text-inksoft/60">{fmtDate(ev.start)}</span>
+                      </span>
+                      <span className="text-xs uppercase tracking-[0.2em] text-ink">
+                        {fmtTime(ev.start)} – {fmtTime(ev.end)}
+                      </span>
+                      <span className="col-span-2 font-display text-xl font-medium tracking-tight md:col-span-1 md:text-2xl">
+                        {title}
+                        {host && host !== title ? (
+                          <span className="font-serifaccent text-lg italic text-inksoft"> — {host}</span>
+                        ) : null}
+                      </span>
+                      <span className="col-span-2 md:col-span-1 md:text-right">
+                        {live && (
+                          <span
+                            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sagedeep"
+                            data-testid="schedule-live-badge"
+                          >
+                            <span className="h-2 w-2 animate-pulse-dot rounded-full bg-sagedeep" />
+                            On Air
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             ) : (
               <div
                 className="flex flex-col items-center gap-6 py-8 text-center"
