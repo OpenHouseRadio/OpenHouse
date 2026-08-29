@@ -10,7 +10,11 @@ import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
-import { RadioDoodle, DoorDoodle } from "@/components/Doodle";
+import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
+
+// Paste your Radio.co schedule widget ID here (Radio.co dashboard → Widgets → Schedule → Share).
+// It looks like: abcd123456 — then the weekly programme appears automatically.
+const SCHEDULE_WIDGET_ID = "";
 
 const MARK_IMG = "/open-house-mark.png";
 
@@ -205,6 +209,114 @@ function ListenSection() {
   );
 }
 
+function ScheduleSection() {
+  const embedRef = useRef(null);
+
+  useEffect(() => {
+    if (!SCHEDULE_WIDGET_ID || !embedRef.current) return;
+    const script = document.createElement("script");
+    script.src = `https://embed.radio.co/embeds/schedule/${SCHEDULE_WIDGET_ID}.js`;
+    script.async = true;
+    embedRef.current.appendChild(script);
+    return () => {
+      if (embedRef.current) embedRef.current.innerHTML = "";
+    };
+  }, []);
+
+  return (
+    <section id="schedule" className="border-y border-line bg-surface" data-testid="schedule-section">
+      <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-8 md:py-28">
+        <Reveal className="mb-12">
+          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">The programme</p>
+          <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="schedule-heading">
+            This Week
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <div className="border border-line bg-paper p-6 sm:p-10 md:p-14">
+            {SCHEDULE_WIDGET_ID ? (
+              <div ref={embedRef} data-testid="schedule-widget" className="min-h-[200px]" />
+            ) : (
+              <div
+                className="flex flex-col items-center gap-6 py-8 text-center"
+                data-testid="schedule-placeholder"
+              >
+                <CalendarDoodle className="w-44 md:w-56" />
+                <p className="text-xs uppercase tracking-[0.25em] text-ink">Weekly Programme</p>
+                <p className="max-w-md text-sm leading-relaxed text-inksoft">
+                  The schedule is being drawn up — it'll appear here as soon as the first
+                  shows are on the board.
+                </p>
+              </div>
+            )}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CommunitySection() {
+  const cards = [
+    {
+      name: "Discord",
+      url: DISCORD_URL,
+      testId: "discord-card",
+      blurb: "The always-on chat — show ideas, track IDs, works in progress and whatever's on your mind.",
+    },
+    {
+      name: "WhatsApp",
+      url: WHATSAPP_URL,
+      testId: "whatsapp-card",
+      blurb: "The group chat — quick hellos, gig tips and the day-to-day life of the station.",
+    },
+  ];
+
+  return (
+    <section id="community" className="border-b border-line bg-surface" data-testid="community-section">
+      <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-8 md:py-28">
+        <Reveal className="mb-12 md:mb-16">
+          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">The community</p>
+          <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="community-heading">
+            Come as you are.
+          </h2>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-inksoft md:text-lg">
+            Open House is a conversation as much as a station. Pick a room and pull up a chair —
+            everyone's welcome, nothing's precious.
+          </p>
+        </Reveal>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {cards.map((c, i) => (
+            <Reveal key={c.name} delay={i * 0.1}>
+              <a
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid={c.testId}
+                className="group flex h-full flex-col justify-between gap-10 border border-line bg-paper p-8 transition-all duration-500 hover:-translate-y-1 hover:border-sagedeep md:p-12"
+              >
+                <div className="flex items-start justify-between">
+                  <h3 className="font-display text-3xl font-bold tracking-tight md:text-5xl">{c.name}</h3>
+                  <ArrowUpRight
+                    className="h-7 w-7 text-inksoft transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-sagedeep md:h-9 md:w-9"
+                    strokeWidth={1.5}
+                  />
+                </div>
+                <p className="max-w-md text-sm leading-relaxed text-inksoft md:text-base">{c.blurb}</p>
+                <p className="link-underline w-fit text-xs uppercase tracking-[0.25em] text-sagedeep">
+                  Join the {c.name}
+                </p>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function GetInvolved() {
   return (
     <section id="get-involved" className="scroll-mt-24 bg-coal text-paper" data-testid="get-involved-section">
@@ -319,7 +431,9 @@ function App() {
           <Hero />
           <Marquee items={["Independent Radio", "Music", "Art", "Conversation", "Community", "Currently Taking Shape", "Open Door Policy"]} />
           <ListenSection />
+          <ScheduleSection />
           <GetInvolved />
+          <CommunitySection />
           <ContactStrip />
         </main>
         <Footer />

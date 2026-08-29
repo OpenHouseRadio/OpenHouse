@@ -1,3 +1,30 @@
+export function CalendarDoodle({ className = "" }) {
+  const ink = "#1C1C1A";
+  const clay = "#C67656";
+  return (
+    <svg
+      viewBox="0 0 320 280"
+      fill="none"
+      className={className}
+      role="img"
+      aria-label="Hand-drawn weekly calendar"
+    >
+      <path
+        d="M42 58 C40 52 44 46 51 46 L272 44 C280 44 285 49 285 57 L283 236 C283 244 278 249 270 249 L52 251 C44 251 39 246 39 238 Z"
+        stroke={ink}
+        strokeWidth="6"
+        strokeLinecap="round"
+      />
+      <path d="M44 96 L282 94" stroke={ink} strokeWidth="6" strokeLinecap="round" />
+      <path d="M84 46 L82 24 M238 44 L236 22" stroke={ink} strokeWidth="6" strokeLinecap="round" />
+      <path d="M96 94 L94 248 M162 94 L160 248 M228 94 L226 248" stroke={ink} strokeWidth="4" strokeLinecap="round" opacity="0.5" />
+      <path d="M40 148 L284 146 M40 200 L284 198" stroke={ink} strokeWidth="4" strokeLinecap="round" opacity="0.5" />
+      <circle cx="128" cy="172" r="16" stroke={clay} strokeWidth="6" />
+      <path d="M196 224 C202 230 212 230 218 224" stroke={clay} strokeWidth="6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function RadioDoodle({ className = "" }) {
   const cream = "#FDF8EF";
   const clay = "#C67656";
