@@ -28,7 +28,7 @@ function Hero() {
           <FadeIn delay={0.1}>
             <p className="mb-8 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-sagedeep">
               <span className="h-px w-10 bg-sagedeep" />
-              Independent radio & cultural platform
+              Independent online radio
             </p>
           </FadeIn>
 
@@ -41,7 +41,12 @@ function Hero() {
 
           <FadeIn delay={0.65}>
             <p className="mt-10 max-w-xl font-serifaccent text-2xl italic leading-snug text-ink/80 md:text-3xl">
-              An independent online radio and culture platform — currently taking shape.
+              Independent online radio for people who are genuinely into things.
+            </p>
+            <p className="mt-6 max-w-xl text-sm leading-relaxed text-inksoft md:text-base">
+              Music, art, food, fashion, football, film, books, nightlife, politics, weird
+              niche interests — whatever you care about enough to talk about. Shows about
+              anything, made by anyone.
             </p>
           </FadeIn>
 
@@ -60,7 +65,7 @@ function Hero() {
                 data-testid="hero-get-involved-btn"
                 className="flex items-center gap-3 border border-ink px-8 py-4 text-xs uppercase tracking-[0.2em] text-ink transition-colors duration-300 hover:bg-surface"
               >
-                Get Involved
+                Have a Show
                 <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
               </a>
             </div>
@@ -145,8 +150,8 @@ function ListenSection() {
               </h3>
               <p className="mt-2 font-serifaccent text-xl italic text-sage">music, conversation & whatever walks in</p>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-paper/70 md:text-base">
-                One continuous stream from the studio — early selections, test broadcasts
-                and the sounds of a station finding its feet. Press play and keep us company.
+                One continuous stream — new shows finding their feet, test broadcasts
+                and whatever happens next. Press play and keep us company.
               </p>
 
               {hasTrack ? (
@@ -318,13 +323,13 @@ function CommunitySection() {
       name: "Discord",
       url: DISCORD_URL,
       testId: "discord-card",
-      blurb: "The always-on chat — show ideas, track IDs, works in progress and whatever's on your mind.",
+      blurb: "The always-on chat — show ideas, half-ideas, hot takes and whatever's on your mind.",
     },
     {
       name: "WhatsApp",
       url: WHATSAPP_URL,
       testId: "whatsapp-card",
-      blurb: "The group chat — quick hellos, gig tips and the day-to-day life of the station.",
+      blurb: "The group chat — quick hellos, what's on, and the day-to-day life of the station.",
     },
   ];
 
@@ -337,8 +342,9 @@ function CommunitySection() {
             Come as you are.
           </h2>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-inksoft md:text-lg">
-            Open House is a conversation as much as a station. Pick a room and pull up a chair —
-            everyone's welcome, nothing's precious.
+            Open House is being built by the people in it — new shows, new people, live
+            broadcasts, parties, conversations and whatever comes next. Pick a room and
+            pull up a chair.
           </p>
         </Reveal>
 
@@ -375,17 +381,21 @@ function CommunitySection() {
 function GetInvolved() {
   return (
     <section id="get-involved" className="scroll-mt-24 bg-coal text-paper" data-testid="get-involved-section">
-      <Marquee dark items={["Host a Show", "Share a Mix", "Join the Conversation", "The Door Is Open"]} />
+      <Marquee dark items={["Anyone Can Have a Show", "No Experience Needed", "A Laptop & a Mic", "The Door Is Open"]} />
       <div className="mx-auto grid max-w-[1600px] gap-12 px-4 py-24 sm:px-8 md:py-36 lg:grid-cols-12 lg:items-center">
         <Reveal className="lg:col-span-8">
           <p className="mb-6 text-xs uppercase tracking-[0.25em] text-sage">Get involved</p>
           <h2 className="max-w-4xl font-display text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-            Host a show with us.
+            Anyone can have a show.
           </h2>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-paper/70 md:text-lg">
-            Open House is being built with the people around it. DJs, artists, musicians,
-            selectors, collectors and creatives — if you have an idea for a show, a mix,
-            or something in between, we'd love to hear it.
+            You don't need to be a DJ, a presenter, or to have any radio experience at all.
+            If you've got a genuine passion, something you know loads about, or just an idea
+            you think could make a good show — we want to hear it.
+          </p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/70 md:text-lg">
+            No studio. No fancy setup. No experience required. A laptop, a mic and your
+            bedroom will do nicely.
           </p>
           <div className="mt-12 flex flex-wrap gap-4">
             <a
@@ -394,7 +404,7 @@ function GetInvolved() {
               className="flex items-center gap-3 bg-paper px-8 py-4 text-xs uppercase tracking-[0.2em] text-ink transition-colors duration-300 hover:bg-sage"
             >
               <Mail className="h-4 w-4" strokeWidth={1.5} />
-              Email Us
+              Pitch a Show
             </a>
             <a
               href={INSTAGRAM_URL}
@@ -446,8 +456,11 @@ function ContactStrip() {
         <div>
           <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">Say hello</p>
           <blockquote className="max-w-2xl font-serifaccent text-3xl italic leading-tight text-ink/85 md:text-5xl">
-            "The kettle is on. Come and make something with us."
+            "If you care about something, there's probably a show in it."
           </blockquote>
+          <p className="mt-6 text-xs uppercase tracking-[0.25em] text-inksoft/60">
+            ps — the kettle is boiling
+          </p>
         </div>
         <a
           href={`mailto:${CONTACT_EMAIL}`}
@@ -484,7 +497,7 @@ function App() {
         <Nav />
         <main>
           <Hero />
-          <Marquee items={["Independent Radio", "Music", "Art", "Conversation", "Community", "Currently Taking Shape", "Open Door Policy"]} />
+          <Marquee items={["Independent Radio", "Shows About Anything", "Anyone Can Have a Show", "Broadcast From Your Bedroom", "Currently Taking Shape", "Open Door Policy"]} />
           <ListenSection />
           <ScheduleSection />
           <GetInvolved />
