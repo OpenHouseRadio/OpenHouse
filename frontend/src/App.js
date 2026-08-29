@@ -72,22 +72,20 @@ function Hero() {
           </FadeIn>
         </motion.div>
 
-        <div className="relative lg:col-span-4">
-          <FadeIn delay={0.5} className="h-full">
-            <div className="relative h-80 overflow-hidden sm:h-[26rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[130%]">
-              <motion.img
-                src={MARK_IMG}
-                alt="Hand-drawn Open House mark — a little house with an open door"
-                style={{ y: imgY }}
-                className="h-[115%] w-full object-contain"
-                data-testid="hero-image"
-              />
-            </div>
+        <div className="relative flex items-center justify-center lg:col-span-4">
+          <FadeIn delay={0.5} className="relative w-full">
+            <motion.img
+              src={MARK_IMG}
+              alt="Hand-drawn Open House mark — a little house with an open door"
+              style={{ y: imgY }}
+              className="mx-auto w-full max-w-sm object-contain sm:max-w-md lg:max-w-lg"
+              data-testid="hero-image"
+            />
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -bottom-5 left-4 flex items-center gap-3 border border-line bg-paper px-5 py-5 lg:-left-10"
+              className="absolute -bottom-5 left-4 flex items-center gap-3 border border-line bg-paper px-5 py-5 lg:left-0"
               data-testid="on-air-badge"
             >
               <span className="h-2 w-2 rounded-full bg-red-400 animate-pulse-dot" />
