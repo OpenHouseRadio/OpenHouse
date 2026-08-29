@@ -13,7 +13,7 @@ export default function Footer() {
               className="h-16 w-auto md:h-20"
             />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-inksoft">
-              Independent online radio. Got a thing? Get a show. Currently taking shape.
+              Independent online radio — currently taking shape. Open House is open.
             </p>
           </div>
 
