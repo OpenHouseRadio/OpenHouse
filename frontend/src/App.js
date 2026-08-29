@@ -12,9 +12,8 @@ import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 
-// Paste your Radio.co schedule widget ID here (Radio.co dashboard → Widgets → Schedule → Share).
-// It looks like: abcd123456 — then the weekly programme appears automatically.
-const SCHEDULE_WIDGET_ID = "";
+// Radio.co schedule widget (from Radio.co dashboard → Widgets → Schedule → Share).
+const SCHEDULE_WIDGET_ID = "es54da380";
 
 const MARK_IMG = "/open-house-mark.png";
 
@@ -210,18 +209,37 @@ function ListenSection() {
 }
 
 function ScheduleSection() {
-  const embedRef = useRef(null);
+  const frameRef = useRef(null);
 
   useEffect(() => {
-    if (!SCHEDULE_WIDGET_ID || !embedRef.current) return;
-    const script = document.createElement("script");
-    script.src = `https://embed.radio.co/embeds/schedule/${SCHEDULE_WIDGET_ID}.js`;
-    script.async = true;
-    embedRef.current.appendChild(script);
-    return () => {
-      if (embedRef.current) embedRef.current.innerHTML = "";
+    const onMessage = (e) => {
+      if (!e.origin.includes("embed.radio.co")) return;
+      let data = e.data;
+      if (typeof data === "string") {
+        try {
+          data = JSON.parse(data);
+        } catch {
+          return;
+        }
+      }
+      if (Array.isArray(data) && data[0] === `${SCHEDULE_WIDGET_ID}.setHeight` && frameRef.current) {
+        frameRef.current.style.height = `${data[1]}px`;
+      }
     };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
+
+  const onLoad = () => {
+    if (frameRef.current?.contentWindow) {
+      setTimeout(() => {
+        frameRef.current?.contentWindow?.postMessage(
+          JSON.stringify(["parent", window.location.href]),
+          "https://embed.radio.co"
+        );
+      }, 1000);
+    }
+  };
 
   return (
     <section id="schedule" className="border-y border-line bg-surface" data-testid="schedule-section">
@@ -236,7 +254,18 @@ function ScheduleSection() {
         <Reveal>
           <div className="border border-line bg-paper p-6 sm:p-10 md:p-14">
             {SCHEDULE_WIDGET_ID ? (
-              <div ref={embedRef} data-testid="schedule-widget" className="min-h-[200px]" />
+              <iframe
+                ref={frameRef}
+                onLoad={onLoad}
+                data-testid="schedule-widget"
+                src={`https://embed.radio.co/embeds/schedule/${SCHEDULE_WIDGET_ID}.html`}
+                title="Open House weekly broadcast schedule"
+                width="100%"
+                height="600"
+                scrolling="no"
+                style={{ border: "none", overflow: "hidden" }}
+                allow="autoplay"
+              />
             ) : (
               <div
                 className="flex flex-col items-center gap-6 py-8 text-center"
