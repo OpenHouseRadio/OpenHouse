@@ -41,7 +41,7 @@ function Hero() {
 
           <FadeIn delay={0.65}>
             <p className="mt-10 max-w-xl font-serifaccent text-2xl italic leading-snug text-ink/80 md:text-3xl">
-              Independent online radio for people who are properly obsessed with something.
+              Got a thing? Get a show.
             </p>
             <p className="mt-6 max-w-xl text-sm leading-relaxed text-inksoft md:text-base">
               Music, art, food, fashion, football, film, books, nightlife, politics, weird
