@@ -212,6 +212,7 @@ function ListenSection() {
 
 function ScheduleSection() {
   const [events, setEvents] = useState(null);
+  const { now } = usePlayer();
 
   useEffect(() => {
     let alive = true;
@@ -262,8 +263,14 @@ function ScheduleSection() {
               <div className="border-t border-line" data-testid="schedule-list">
                 {upcoming.map((ev, i) => {
                   const live = isLive(ev.start, ev.end);
-                  const title = ev.playlist?.title || ev.playlist?.name || "Open House";
-                  const host = ev.playlist?.artist;
+                  const rawTitle = (ev.playlist?.title || ev.playlist?.name || "").trim();
+                  const isDefault = !rawTitle || rawTitle.toLowerCase() === "default";
+                  const title = isDefault ? "Open House Radio" : rawTitle;
+                  const host =
+                    !isDefault && ev.playlist?.artist && ev.playlist.artist !== rawTitle
+                      ? ev.playlist.artist
+                      : null;
+                  const liveDj = live && now?.dj ? now.dj : null;
                   return (
                     <div
                       key={ev.event_id || i}
@@ -289,7 +296,7 @@ function ScheduleSection() {
                             data-testid="schedule-live-badge"
                           >
                             <span className="h-2 w-2 animate-pulse-dot rounded-full bg-sagedeep" />
-                            On Air
+                            On Air{liveDj ? ` — ${liveDj}` : ""}
                           </span>
                         )}
                       </span>
