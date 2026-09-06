@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Play, Pause, Instagram, Mail, MessagesSquare, MessageCircle } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
@@ -15,15 +16,22 @@ export default function Nav() {
       className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-xl"
     >
       <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-8 md:h-20">
-        <a href="#top" data-testid="nav-logo" className="flex items-center" aria-label="Open House — home">
+        <Link to="/" data-testid="nav-logo" className="flex items-center" aria-label="Open House — home">
           <img
             src="/open-house-wordmark.png"
             alt="Open House"
             className="h-9 w-auto transition-transform duration-300 hover:-rotate-2 md:h-11"
           />
-        </a>
+        </Link>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          <Link
+            to="/schedule"
+            data-testid="nav-schedule"
+            className="link-underline mr-1 hidden text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink sm:block"
+          >
+            Schedule
+          </Link>
           <a
             href={INSTAGRAM_URL}
             target="_blank"

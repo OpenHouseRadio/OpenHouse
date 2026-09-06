@@ -2,15 +2,17 @@ import { useRef } from "react";
 import "@/App.css";
 import Lenis from "lenis";
 import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Play, Pause, ArrowRight, ArrowUpRight, Instagram, Mail } from "lucide-react";
-import { PlayerProvider, usePlayer, fmtDay, fmtDate, fmtTime, isLiveEvent, upcomingEvents, eventTitle } from "@/lib/player";
+import { PlayerProvider, usePlayer, fmtDay, fmtDate, fmtTime, isLiveEvent, upcomingEvents, eventParts } from "@/lib/player";
 import Nav, { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
+import Schedule from "@/pages/Schedule";
 
 const MARK_IMG = "/open-house-mark.png";
 
@@ -113,6 +115,10 @@ function ListenSection() {
   const hasTrack = now?.onAir && (now.title || now.artist);
   const liveEv = schedule.find(isLiveEvent);
   const nextEv = upcomingEvents(schedule)[0];
+  const evLabel = (ev) => {
+    const p = eventParts(ev);
+    return p.host ? `${p.title} w/ ${p.host}` : p.title;
+  };
 
   return (
     <section id="listen" className="mx-auto max-w-[1600px] scroll-mt-24 px-4 py-20 sm:px-8 md:py-32" data-testid="listen-section">
@@ -214,12 +220,13 @@ function ListenSection() {
             <div className="border-t border-paper/15 pt-5" data-testid="up-next-strip">
               {liveEv ? (
                 <p className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
-                  <span className="text-sage">Live now</span> · {eventTitle(liveEv)} · until {fmtTime(liveEv.end)}
+                  <span className="text-sage">Live now</span> · {evLabel(liveEv)} · until {fmtTime(liveEv.end)}
                 </p>
               ) : nextEv ? (
                 <p className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
-                  <span className="text-sage">Up next</span> · {eventTitle(nextEv)} · {fmtDay(nextEv.start)}{" "}
-                  {fmtDate(nextEv.start)} · {fmtTime(nextEv.start)}—{fmtTime(nextEv.end)}
+                  <span className="text-sage">Up next</span> · {evLabel(nextEv)} ·{" "}
+                  {`${fmtDay(nextEv.start)} ${fmtDate(nextEv.start)}`} · {fmtTime(nextEv.start)}—
+                  {fmtTime(nextEv.end)}
                 </p>
               ) : (
                 <p className="text-[10px] uppercase tracking-[0.3em] text-paper/40">
@@ -234,95 +241,88 @@ function ListenSection() {
   );
 }
 
-function ScheduleSection() {
+function NextOnSection() {
   const { schedule, now } = usePlayer();
-  const upcoming = upcomingEvents(schedule).slice(0, 7);
+  const liveEv = schedule.find(isLiveEvent);
+  const next = upcomingEvents(schedule)
+    .filter((e) => e !== liveEv)
+    .slice(0, liveEv ? 2 : 3);
+  const entries = [...(liveEv ? [liveEv] : []), ...next];
 
   return (
-    <section id="schedule" className="border-y border-line bg-surface" data-testid="schedule-section">
+    <section id="next-on" className="border-y border-line bg-surface" data-testid="next-on-section">
       <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-8 md:py-28">
-        <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">The programme</p>
-            <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="schedule-heading">
-              This Week
-            </h2>
-          </div>
-          <p className="flex items-center gap-2 pb-2 text-xs uppercase tracking-[0.2em] text-inksoft">
-            <span className="h-1.5 w-1.5 rounded-full bg-sagedeep" />
-            Synced live with the studio
+        <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <p className="text-xs uppercase tracking-[0.25em] text-sagedeep" data-testid="next-on-heading">
+            Next on Open House
           </p>
+          <Link
+            to="/schedule"
+            data-testid="view-full-schedule-link"
+            className="link-underline flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink"
+          >
+            View Full Schedule <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+          </Link>
         </Reveal>
 
-        <Reveal>
-          <div className="border border-line bg-paper p-6 sm:p-10 md:p-14">
-            {upcoming.length > 0 ? (
-              <div className="border-t border-line" data-testid="schedule-list">
-                {upcoming.map((ev, i) => {
-                  const live = isLiveEvent(ev);
-                  const title = eventTitle(ev);
-                  const rawTitle = (ev.playlist?.title || ev.playlist?.name || "").trim();
-                  const host =
-                    title !== "Open House Radio" && ev.playlist?.artist && ev.playlist.artist !== rawTitle
-                      ? ev.playlist.artist
-                      : null;
-                  const liveDj = live && now?.dj ? now.dj : null;
-                  return (
-                    <div
-                      key={ev.event_id || i}
-                      data-testid={`schedule-row-${i}`}
-                      className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 border-b border-line py-5 md:grid-cols-[180px_160px_1fr_auto] md:px-2"
-                    >
-                      <span className="text-xs uppercase tracking-[0.2em] text-inksoft">
-                        {i === 0 && (
-                          <span
-                            className="mb-1 block text-[10px] tracking-[0.3em] text-sagedeep"
-                            data-testid="up-next-label"
-                          >
-                            Up Next
-                          </span>
-                        )}
-                        {fmtDay(ev.start)} <span className="text-inksoft/60">{fmtDate(ev.start)}</span>
-                      </span>
-                      <span className="text-xs uppercase tracking-[0.2em] text-ink">
-                        {fmtTime(ev.start)} – {fmtTime(ev.end)}
-                      </span>
-                      <span className="col-span-2 font-display text-xl font-medium tracking-tight md:col-span-1 md:text-2xl">
-                        {title}
-                        {host && host !== title ? (
-                          <span className="font-serifaccent text-lg italic text-inksoft"> — {host}</span>
-                        ) : null}
-                      </span>
-                      <span className="col-span-2 md:col-span-1 md:text-right">
-                        {live && (
-                          <span
-                            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sagedeep"
-                            data-testid="schedule-live-badge"
-                          >
-                            <span className="h-2 w-2 animate-pulse-dot rounded-full bg-sagedeep" />
-                            On Air{liveDj ? ` — ${liveDj}` : ""}
-                          </span>
-                        )}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div
-                className="flex flex-col items-center gap-6 py-8 text-center"
-                data-testid="schedule-placeholder"
-              >
-                <CalendarDoodle className="w-44 md:w-56" />
-                <p className="text-xs uppercase tracking-[0.25em] text-ink">Weekly Programme</p>
-                <p className="max-w-md text-sm leading-relaxed text-inksoft">
-                  The schedule is being drawn up — it'll appear here as soon as the first
-                  shows are on the board.
-                </p>
-              </div>
-            )}
-          </div>
-        </Reveal>
+        {entries.length > 0 ? (
+          <Reveal>
+            <div className="grid border-t border-line md:grid-cols-3" data-testid="next-on-list">
+              {entries.map((ev, i) => {
+                const live = isLiveEvent(ev);
+                const parts = eventParts(ev);
+                const hostShown = (live && now?.dj) || parts.host;
+                return (
+                  <div
+                    key={ev.event_id || i}
+                    data-testid={`next-on-entry-${i}`}
+                    className="border-b border-line py-8 md:border-b-0 md:border-r md:py-10 md:pl-8 md:first:pl-0 md:last:border-r-0"
+                  >
+                    <p className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-inksoft">
+                      {live && (
+                        <span className="flex items-center gap-1.5 text-sagedeep" data-testid="next-on-live-label">
+                          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-sagedeep" />
+                          Live Now ·
+                        </span>
+                      )}
+                      {fmtDay(ev.start)} {fmtDate(ev.start)}
+                    </p>
+                    <p className="mt-3 font-display text-lg font-medium tracking-tight md:text-xl">
+                      {fmtTime(ev.start)}—{fmtTime(ev.end)}
+                    </p>
+                    <p className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">
+                      {parts.title}
+                    </p>
+                    {hostShown && (
+                      <p className="mt-2 font-serifaccent text-xl italic text-inksoft">{hostShown}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </Reveal>
+        ) : (
+          <Reveal>
+            <div
+              className="flex flex-col items-center gap-6 border-t border-line py-12 text-center"
+              data-testid="next-on-empty"
+            >
+              <CalendarDoodle className="w-40 md:w-48" />
+              <p className="max-w-md text-sm leading-relaxed text-inksoft">
+                New shows are landing soon — follow{" "}
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline text-sagedeep"
+                >
+                  @openhouse_radio
+                </a>{" "}
+                for the first broadcasts.
+              </p>
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );
@@ -486,6 +486,28 @@ function ContactStrip() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
+
+function Landing() {
+  return (
+    <main>
+      <Hero />
+      <Marquee items={["Independent Radio", "Shows About Anything", "Anyone Can Have a Show", "Broadcast From Your Bedroom", "Currently Taking Shape", "Open Door Policy"]} />
+      <ListenSection />
+      <NextOnSection />
+      <GetInvolved />
+      <CommunitySection />
+      <ContactStrip />
+    </main>
+  );
+}
+
 function App() {
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
@@ -505,18 +527,16 @@ function App() {
     <div className="App">
       <div className="noise-overlay" aria-hidden="true" />
       <PlayerProvider>
-        <Nav />
-        <main>
-          <Hero />
-          <Marquee items={["Independent Radio", "Shows About Anything", "Anyone Can Have a Show", "Broadcast From Your Bedroom", "Currently Taking Shape", "Open Door Policy"]} />
-          <ListenSection />
-          <ScheduleSection />
-          <GetInvolved />
-          <CommunitySection />
-          <ContactStrip />
-        </main>
-        <Footer />
-        <PlayerBar />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/schedule" element={<main><Schedule /></main>} />
+          </Routes>
+          <Footer />
+          <PlayerBar />
+        </BrowserRouter>
       </PlayerProvider>
     </div>
   );

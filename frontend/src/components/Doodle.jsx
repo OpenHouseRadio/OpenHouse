@@ -30,7 +30,7 @@ export function RadioDoodle({ className = "" }) {
   const clay = "#C67656";
   return (
     <svg
-      viewBox="0 0 400 320"
+      viewBox="0 -16 400 336"
       fill="none"
       className={className}
       role="img"
