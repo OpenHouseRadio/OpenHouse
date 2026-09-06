@@ -91,7 +91,7 @@ export default function Schedule() {
                 rel="noopener noreferrer"
                 className="link-underline text-sagedeep"
               >
-                @openhouse_radio
+                @openhouse_world
               </a>{" "}
               for the first broadcasts.
             </p>

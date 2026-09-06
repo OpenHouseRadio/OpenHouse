@@ -38,7 +38,7 @@ export default function Footer() {
                   data-testid="footer-instagram"
                   className="group flex items-center gap-1 text-ink transition-colors duration-300 hover:text-sagedeep"
                 >
-                  Instagram — @openhouse_radio
+                  Instagram — @openhouse_world
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </li>

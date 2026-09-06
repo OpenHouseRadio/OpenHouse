@@ -7,7 +7,7 @@ Build a sleek, laid-back, editorial-style website for "Open House" — an indepe
 Simplified to a SINGLE-PAGE launch/landing page. No backend, no database, no REACT_APP_BACKEND_URL — standalone static frontend deployable to Vercel as-is. All fake/example shows, schedules, projects and multi-page structure removed to avoid looking more established than the brand currently is.
 
 ## Live Brand Details (confirmed by user)
-- Instagram: https://www.instagram.com/openhouse_radio
+- Instagram: https://www.instagram.com/openhouse_world (updated 2026-09-06, was openhouse_radio)
 - Contact email: david@openhouseradio.co.uk (mailto CTAs)
 - Radio.co stream: https://streams.radio.co/seb9792770/listen (verified HTTP 200, wired to a real HTML5 audio player)
 
