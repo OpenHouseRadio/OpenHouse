@@ -43,10 +43,10 @@ export const eventTitle = (ev) => {
   return !raw || raw.toLowerCase() === "default" ? "Open House Radio" : raw;
 };
 export const eventParts = (ev) => {
-  const raw = (ev?.playlist?.title || ev?.playlist?.name || "").trim();
+  const raw = (ev?.title || ev?.playlist?.title || ev?.playlist?.name || "").trim();
   const isDefault = !raw || raw.toLowerCase() === "default";
   let title = isDefault ? "Open House Radio" : raw;
-  let host = ev?.dj?.name || ev?.dj_name || null;
+  let host = ev?.dj?.name || ev?.dj_name || ev?.presenter || null;
   const artist = ev?.playlist?.artist?.trim();
   if (!host && artist && !["default", "open house"].includes(artist.toLowerCase()) && artist !== raw) {
     host = artist;
@@ -54,7 +54,7 @@ export const eventParts = (ev) => {
   if (!host && raw.includes("—")) {
     const parts = raw.split("—").map((s) => s.trim()).filter(Boolean);
     if (parts.length > 1) {
-      title = isDefault ? parts[0] : parts[0];
+      title = parts[0];
       host = parts.slice(1).join(" — ");
     }
   }
