@@ -14,8 +14,6 @@ import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 import Schedule from "@/pages/Schedule";
 
-const MARK_IMG = "/open-house-mark.png";
-
 function Hero() {
   const { open, now } = usePlayer();
   const ref = useRef(null);
@@ -80,10 +78,10 @@ function Hero() {
         <div className="relative flex items-center justify-center lg:col-span-4">
           <FadeIn delay={0.5} className="relative w-full">
             <motion.img
-              src={MARK_IMG}
+              src="/open-house-mark-tight.png"
               alt="Hand-drawn Open House mark — a little house with an open door"
               style={{ y: imgY }}
-              className="mx-auto w-full max-w-sm object-contain sm:max-w-md lg:max-w-lg"
+              className="mx-auto w-full max-w-md object-contain sm:max-w-lg lg:max-w-xl"
               data-testid="hero-image"
             />
             <motion.div

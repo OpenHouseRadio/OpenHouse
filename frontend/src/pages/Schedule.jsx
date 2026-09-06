@@ -30,12 +30,6 @@ export default function Schedule() {
         <h1 className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tighter md:text-[9vw]">
           <MaskedLine delay={0.15}>Schedule</MaskedLine>
         </h1>
-        <FadeIn delay={0.45}>
-          <p className="mt-8 max-w-2xl text-base leading-relaxed text-inksoft md:text-lg">
-            Everything coming up on Open House. If you're into it, there's a show in it —
-            and this is where it lands.
-          </p>
-        </FadeIn>
       </div>
 
       <div className="mx-auto mt-16 max-w-[1600px] px-4 sm:px-8 md:mt-20">
