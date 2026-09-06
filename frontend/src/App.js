@@ -484,6 +484,11 @@ function ContactStrip() {
   );
 }
 
+function PlayerSpacer() {
+  const { on } = usePlayer();
+  return on ? <div className="h-24" aria-hidden="true" data-testid="player-spacer" /> : null;
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -532,6 +537,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/schedule" element={<main><Schedule /></main>} />
           </Routes>
+          <PlayerSpacer />
           <Footer />
           <PlayerBar />
         </BrowserRouter>
