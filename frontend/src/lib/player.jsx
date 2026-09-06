@@ -51,11 +51,14 @@ export const eventParts = (ev) => {
   if (!host && artist && !["default", "open house"].includes(artist.toLowerCase()) && artist !== raw) {
     host = artist;
   }
-  if (!host && raw.includes("—")) {
-    const parts = raw.split("—").map((s) => s.trim()).filter(Boolean);
-    if (parts.length > 1) {
-      title = parts[0];
-      host = parts.slice(1).join(" — ");
+  if (!host) {
+    const sep = raw.includes("—") ? "—" : raw.includes(" - ") ? " - " : null;
+    if (sep) {
+      const parts = raw.split(sep).map((s) => s.trim()).filter(Boolean);
+      if (parts.length > 1) {
+        title = parts[0];
+        host = parts.slice(1).join(sep);
+      }
     }
   }
   return { title, host };
