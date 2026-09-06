@@ -73,7 +73,7 @@ export function PlayerProvider({ children }) {
   useEffect(() => {
     let alive = true;
     const load = () =>
-      fetch("https://public.radio.co/stations/seb9792770/embed/schedule", { cache: "no-store" })
+      fetch(`https://public.radio.co/stations/seb9792770/embed/schedule?_=${Date.now()}`, { cache: "no-store" })
         .then((r) => (r.ok ? r.json() : Promise.reject(new Error("schedule fetch failed"))))
         .then((d) => alive && setSchedule(Array.isArray(d.data) ? d.data : []))
         .catch(() => alive && setSchedule([]));
