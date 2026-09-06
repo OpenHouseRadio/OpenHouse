@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import "@/App.css";
 import Lenis from "lenis";
 import { useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Play, Pause, ArrowRight, ArrowUpRight, Instagram, Mail } from "lucide-react";
-import { PlayerProvider, usePlayer } from "@/lib/player";
+import { PlayerProvider, usePlayer, fmtDay, fmtDate, fmtTime, isLiveEvent, upcomingEvents, eventTitle } from "@/lib/player";
 import Nav, { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
@@ -15,7 +15,7 @@ import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 const MARK_IMG = "/open-house-mark.png";
 
 function Hero() {
-  const { open } = usePlayer();
+  const { open, now } = usePlayer();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
@@ -68,6 +68,9 @@ function Hero() {
                 Have a Show
                 <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
               </a>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-inksoft" data-testid="hero-meta">
+                Live from London — Est. 2026
+              </p>
             </div>
           </FadeIn>
         </motion.div>
@@ -88,10 +91,14 @@ function Hero() {
               className="absolute -bottom-5 left-4 flex items-center gap-3 border border-line bg-paper px-5 py-5 lg:left-0"
               data-testid="on-air-badge"
             >
-              <span className="h-2 w-2 rounded-full bg-red-400 animate-pulse-dot" />
+              <span className={`h-2 w-2 rounded-full ${now?.onAir ? "bg-red-400 animate-pulse-dot" : "bg-inksoft/40"}`} />
               <div>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-inksoft">On Air</p>
-                <p className="font-display text-sm font-medium">Streaming via Radio.co</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-inksoft">
+                  {now?.onAir ? "Live Now" : "Off Air"}
+                </p>
+                <p className="max-w-[190px] truncate font-display text-sm font-medium">
+                  {now?.onAir ? now?.title || "Broadcasting now" : "Back soon"}
+                </p>
               </div>
             </motion.div>
           </FadeIn>
@@ -102,8 +109,10 @@ function Hero() {
 }
 
 function ListenSection() {
-  const { playing, toggle, now } = usePlayer();
+  const { playing, toggle, now, schedule } = usePlayer();
   const hasTrack = now?.onAir && (now.title || now.artist);
+  const liveEv = schedule.find(isLiveEvent);
+  const nextEv = upcomingEvents(schedule)[0];
 
   return (
     <section id="listen" className="mx-auto max-w-[1600px] scroll-mt-24 px-4 py-20 sm:px-8 md:py-32" data-testid="listen-section">
@@ -201,6 +210,23 @@ function ListenSection() {
                 ))}
               </div>
             </div>
+
+            <div className="border-t border-paper/15 pt-5" data-testid="up-next-strip">
+              {liveEv ? (
+                <p className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
+                  <span className="text-sage">Live now</span> · {eventTitle(liveEv)} · until {fmtTime(liveEv.end)}
+                </p>
+              ) : nextEv ? (
+                <p className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
+                  <span className="text-sage">Up next</span> · {eventTitle(nextEv)} · {fmtDay(nextEv.start)}{" "}
+                  {fmtDate(nextEv.start)} · {fmtTime(nextEv.start)}—{fmtTime(nextEv.end)}
+                </p>
+              ) : (
+                <p className="text-[10px] uppercase tracking-[0.3em] text-paper/40">
+                  New shows landing soon
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </Reveal>
@@ -209,35 +235,8 @@ function ListenSection() {
 }
 
 function ScheduleSection() {
-  const [events, setEvents] = useState(null);
-  const { now } = usePlayer();
-
-  useEffect(() => {
-    let alive = true;
-    const load = () =>
-      fetch("https://public.radio.co/stations/seb9792770/embed/schedule", { cache: "no-store" })
-        .then((r) => (r.ok ? r.json() : Promise.reject(new Error("schedule fetch failed"))))
-        .then((d) => alive && setEvents(Array.isArray(d.data) ? d.data : []))
-        .catch(() => alive && setEvents([]));
-    load();
-    const t = setInterval(load, 300000);
-    return () => {
-      alive = false;
-      clearInterval(t);
-    };
-  }, []);
-
-  const fmtDay = (iso) => new Date(iso).toLocaleDateString("en-GB", { weekday: "long" });
-  const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  const fmtTime = (iso) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-  const isLive = (start, end) => {
-    const n = Date.now();
-    return n >= new Date(start).getTime() && n < new Date(end).getTime();
-  };
-
-  const upcoming = (events || [])
-    .filter((e) => new Date(e.end).getTime() > Date.now())
-    .slice(0, 7);
+  const { schedule, now } = usePlayer();
+  const upcoming = upcomingEvents(schedule).slice(0, 7);
 
   return (
     <section id="schedule" className="border-y border-line bg-surface" data-testid="schedule-section">
@@ -260,12 +259,11 @@ function ScheduleSection() {
             {upcoming.length > 0 ? (
               <div className="border-t border-line" data-testid="schedule-list">
                 {upcoming.map((ev, i) => {
-                  const live = isLive(ev.start, ev.end);
+                  const live = isLiveEvent(ev);
+                  const title = eventTitle(ev);
                   const rawTitle = (ev.playlist?.title || ev.playlist?.name || "").trim();
-                  const isDefault = !rawTitle || rawTitle.toLowerCase() === "default";
-                  const title = isDefault ? "Open House Radio" : rawTitle;
                   const host =
-                    !isDefault && ev.playlist?.artist && ev.playlist.artist !== rawTitle
+                    title !== "Open House Radio" && ev.playlist?.artist && ev.playlist.artist !== rawTitle
                       ? ev.playlist.artist
                       : null;
                   const liveDj = live && now?.dj ? now.dj : null;
@@ -276,6 +274,14 @@ function ScheduleSection() {
                       className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 border-b border-line py-5 md:grid-cols-[180px_160px_1fr_auto] md:px-2"
                     >
                       <span className="text-xs uppercase tracking-[0.2em] text-inksoft">
+                        {i === 0 && (
+                          <span
+                            className="mb-1 block text-[10px] tracking-[0.3em] text-sagedeep"
+                            data-testid="up-next-label"
+                          >
+                            Up Next
+                          </span>
+                        )}
                         {fmtDay(ev.start)} <span className="text-inksoft/60">{fmtDate(ev.start)}</span>
                       </span>
                       <span className="text-xs uppercase tracking-[0.2em] text-ink">

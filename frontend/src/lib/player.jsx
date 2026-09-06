@@ -29,6 +29,20 @@ async function fetchNowPlaying(signal) {
   };
 }
 
+export const fmtDay = (iso) => new Date(iso).toLocaleDateString("en-GB", { weekday: "short" }).toUpperCase();
+export const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short" }).toUpperCase();
+export const fmtTime = (iso) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+export const isLiveEvent = (ev) => {
+  const n = Date.now();
+  return n >= new Date(ev.start).getTime() && n < new Date(ev.end).getTime();
+};
+export const upcomingEvents = (schedule) =>
+  (schedule || []).filter((e) => new Date(e.end).getTime() > Date.now());
+export const eventTitle = (ev) => {
+  const raw = (ev?.playlist?.title || ev?.playlist?.name || "").trim();
+  return !raw || raw.toLowerCase() === "default" ? "Open House Radio" : raw;
+};
+
 const PlayerCtx = createContext(null);
 
 export function PlayerProvider({ children }) {
@@ -36,6 +50,22 @@ export function PlayerProvider({ children }) {
   const [on, setOn] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [now, setNow] = useState(null);
+  const [schedule, setSchedule] = useState([]);
+
+  useEffect(() => {
+    let alive = true;
+    const load = () =>
+      fetch("https://public.radio.co/stations/seb9792770/embed/schedule", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error("schedule fetch failed"))))
+        .then((d) => alive && setSchedule(Array.isArray(d.data) ? d.data : []))
+        .catch(() => alive && setSchedule([]));
+    load();
+    const t = setInterval(load, 300000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -88,7 +118,7 @@ export function PlayerProvider({ children }) {
   };
 
   return (
-    <PlayerCtx.Provider value={{ on, playing, toggle, open, close, now }}>
+    <PlayerCtx.Provider value={{ on, playing, toggle, open, close, now, schedule }}>
       {children}
     </PlayerCtx.Provider>
   );

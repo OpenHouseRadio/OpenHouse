@@ -7,7 +7,7 @@ export const DISCORD_URL = "https://discord.gg/AGsudUcFn";
 export const WHATSAPP_URL = "https://chat.whatsapp.com/Ex5aXILwwxj6mBkxcczlxe?mode=gi_t";
 
 export default function Nav() {
-  const { playing, toggle } = usePlayer();
+  const { playing, toggle, now } = usePlayer();
 
   return (
     <header
@@ -74,7 +74,7 @@ export default function Nav() {
             )}
             Listen Live
             <span
-              className={`h-1.5 w-1.5 rounded-full ${playing ? "animate-pulse-dot bg-red-400" : "bg-sage"}`}
+              className={`h-1.5 w-1.5 rounded-full ${now?.onAir ? "animate-pulse-dot bg-red-400" : "bg-sage"}`}
             />
           </button>
         </div>
