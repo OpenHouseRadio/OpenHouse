@@ -276,6 +276,14 @@ function NextOnSection() {
                     data-testid={`next-on-entry-${i}`}
                     className="border-b border-line py-8 md:border-b-0 md:border-r md:py-10 md:pl-8 md:first:pl-0 md:last:border-r-0"
                   >
+                    {ev.playlist?.artwork && (
+                      <img
+                        src={ev.playlist.artwork.replace(".100.", ".600.").replace("-100.", "-600.")}
+                        alt={parts.title}
+                        className="w-full aspect-square object-cover grayscale contrast-[1.05] mb-6"
+                        data-testid={`next-on-artwork-${i}`}
+                      />
+                    )}
                     <p className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-inksoft">
                       {live && (
                         <span className="flex items-center gap-1.5 text-sagedeep" data-testid="next-on-live-label">
