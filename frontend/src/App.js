@@ -13,6 +13,7 @@ import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 import Schedule from "@/pages/Schedule";
+import Archive from "@/pages/Archive";
 
 function Hero() {
   const { open, now } = usePlayer();
@@ -544,6 +545,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/schedule" element={<main><Schedule /></main>} />
+            <Route path="/archive" element={<main><Archive /></main>} />
           </Routes>
           <PlayerSpacer />
           <Footer />

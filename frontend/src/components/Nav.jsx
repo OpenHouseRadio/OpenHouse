@@ -32,6 +32,13 @@ export default function Nav() {
           >
             Schedule
           </Link>
+          <Link
+            to="/archive"
+            data-testid="nav-archive"
+            className="link-underline mr-1 hidden text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink sm:block"
+          >
+            Archive
+          </Link>
           <a
             href={INSTAGRAM_URL}
             target="_blank"
