@@ -147,14 +147,35 @@ export default function Archive() {
                 </button>
                 {open && (
                   <div className="pb-6 md:pl-[120px]" data-testid="archive-player">
-                    <iframe
-                      src={`https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=1&feed=${encodeURIComponent(show.key)}`}
-                      width="100%"
-                      height="60"
-                      title={`Play ${title}`}
-                      allow="autoplay"
-                      className="border-0"
-                    />
+                    <div className="flex items-start gap-5">
+                      {(show.pictures?.extra_large || show.pictures?.large) && (
+                        <img
+                          src={show.pictures.extra_large || show.pictures.large}
+                          alt={title}
+                          className="w-20 shrink-0 object-cover grayscale contrast-[1.05] md:w-28"
+                          data-testid={`archive-artwork-${i}`}
+                        />
+                      )}
+                      <div className="flex-1">
+                        <iframe
+                          src={`https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=1&feed=${encodeURIComponent(show.key)}`}
+                          width="100%"
+                          height="60"
+                          title={`Play ${title}`}
+                          allow="autoplay"
+                          className="border-0"
+                        />
+                        <a
+                          href={show.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid={`archive-mixcloud-link-${i}`}
+                          className="link-underline mt-3 inline-block text-[10px] uppercase tracking-[0.25em] text-inksoft transition-colors duration-300 hover:text-ink"
+                        >
+                          Trouble playing? Open in Mixcloud
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
