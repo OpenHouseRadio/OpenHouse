@@ -152,7 +152,7 @@ export default function Archive() {
                         <img
                           src={show.pictures.extra_large || show.pictures.large}
                           alt={title}
-                          className="w-20 shrink-0 object-cover grayscale contrast-[1.05] md:w-28"
+                          className="w-20 shrink-0 object-cover md:w-28"
                           data-testid={`archive-artwork-${i}`}
                         />
                       )}
