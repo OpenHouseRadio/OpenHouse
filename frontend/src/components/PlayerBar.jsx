@@ -19,7 +19,7 @@ export default function PlayerBar() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-x-0 bottom-0 z-50 border-t border-paper/10 bg-coal text-paper"
         >
-          <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-4 py-3 sm:px-8">
+          <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))] sm:px-8">
             <button
               onClick={toggle}
               data-testid="player-toggle-btn"

@@ -20,7 +20,7 @@ export default function Nav() {
           <img
             src="/open-house-wordmark.png"
             alt="Open House"
-            className="h-9 w-auto transition-transform duration-300 hover:-rotate-2 md:h-11"
+            className="h-10 w-auto transition-transform duration-300 hover:-rotate-2 md:h-12"
           />
         </Link>
 
@@ -80,7 +80,7 @@ export default function Nav() {
           <button
             onClick={toggle}
             data-testid="listen-live-btn"
-            className="flex items-center gap-2.5 bg-ink px-5 py-2.5 text-xs uppercase tracking-[0.15em] text-paper transition-colors duration-300 hover:bg-sagedeep hover:text-ink md:text-sm"
+            className="flex items-center gap-2.5 bg-ink px-5 py-3 text-xs uppercase tracking-[0.15em] text-paper transition-colors duration-300 hover:bg-sagedeep hover:text-ink md:text-sm"
           >
             {playing ? (
               <Pause className="h-3.5 w-3.5 fill-current" />

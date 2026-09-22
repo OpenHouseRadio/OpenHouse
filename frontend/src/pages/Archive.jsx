@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Play, Pause } from "lucide-react";
 import { fmtDay, fmtDate } from "@/lib/player";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 
@@ -108,11 +109,26 @@ export default function Archive() {
                   onClick={() => setOpenKey(open ? null : show.key)}
                   aria-expanded={open}
                   data-testid={`archive-row-${i}`}
-                  className="group block w-full py-6 text-left md:grid md:grid-cols-[70px_1fr_180px_150px_80px] md:items-baseline md:gap-x-8 md:py-8"
+                  className="group block w-full py-6 text-left md:grid md:grid-cols-[120px_1fr_180px_150px_80px] md:items-center md:gap-x-8 md:py-8"
                 >
-                  <span className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-ink/60">
-                    {open && <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-sagedeep" />}
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="flex items-center gap-4">
+                    <span
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
+                        open
+                          ? "border-sagedeep text-sagedeep"
+                          : "border-ink/25 text-ink group-hover:border-sagedeep group-hover:text-sagedeep"
+                      }`}
+                      data-testid={`archive-play-icon-${i}`}
+                    >
+                      {open ? (
+                        <Pause className="h-3.5 w-3.5 fill-current" />
+                      ) : (
+                        <Play className="h-3.5 w-3.5 fill-current" />
+                      )}
+                    </span>
+                    <span className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-ink/60">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </span>
                   <span
                     className={`mt-1 block font-display text-[26px] font-bold leading-tight tracking-tight transition-colors duration-300 group-hover:text-sagedeep md:mt-0 md:text-[32px] ${
@@ -130,7 +146,7 @@ export default function Archive() {
                   </span>
                 </button>
                 {open && (
-                  <div className="pb-6 md:pl-[102px]" data-testid="archive-player">
+                  <div className="pb-6 md:pl-[120px]" data-testid="archive-player">
                     <iframe
                       src={`https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=1&feed=${encodeURIComponent(show.key)}`}
                       width="100%"
