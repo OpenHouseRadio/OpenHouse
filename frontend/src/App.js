@@ -281,7 +281,7 @@ function NextOnSection() {
                       <img
                         src={ev.playlist.artwork.replace(".100.", ".600.").replace("-100.", "-600.")}
                         alt={parts.title}
-                        className="w-full aspect-square object-cover grayscale contrast-[1.05] mb-6"
+                        className="w-full aspect-square object-cover mb-6"
                         data-testid={`next-on-artwork-${i}`}
                       />
                     )}
