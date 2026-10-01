@@ -49,7 +49,7 @@ export default function Nav() {
         className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-xl"
       >
         <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-8 md:h-20">
-          <Link to="/" data-testid="nav-logo" className="flex items-center" aria-label="Open House — home">
+          <Link to="/" data-testid="nav-logo" className="flex items-center" aria-label="Open House – home">
             <img
               src="/open-house-wordmark.png"
               alt="Open House"

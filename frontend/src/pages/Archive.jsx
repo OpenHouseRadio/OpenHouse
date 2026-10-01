@@ -16,7 +16,7 @@ const slugOf = (key) => key.split("/").filter(Boolean).pop();
 function parseShow(name, key) {
   const override = OVERRIDES[slugOf(key)];
   if (override) return { title: override.title, host: override.host || "" };
-  const match = name.match(/\s+w\/\s+|\s+with\s+|—/i);
+  const match = name.match(/\s+w\/\s+|\s+with\s+|–/i);
   if (match) {
     const i = match.index;
     return { title: name.slice(0, i).trim(), host: name.slice(i + match[0].length).trim() };
@@ -191,7 +191,7 @@ export default function Archive() {
         )}
         {!loading && items.length === 0 && (
           <p className="py-16 text-center text-sm uppercase tracking-[0.2em] text-inksoft" data-testid="archive-empty">
-            Nothing on the shelf yet — first shows are being recorded.
+            Nothing on the shelf yet – first shows are being recorded.
           </p>
         )}
         <div ref={sentinelRef} className="h-1" aria-hidden="true" />

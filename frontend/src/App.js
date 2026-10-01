@@ -46,7 +46,7 @@ function Hero() {
             </p>
             <p className="mt-8 max-w-xl text-sm leading-relaxed text-inksoft md:text-base">
               Music, art, food, fashion, football, film, books, nightlife, politics, weird
-              niche interests — whatever you care about enough to talk about. Shows about
+              niche interests – whatever you care about enough to talk about. Shows about
               anything, made by anyone.
             </p>
           </FadeIn>
@@ -70,7 +70,7 @@ function Hero() {
                 <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
               </a>
               <p className="text-[10px] uppercase tracking-[0.3em] text-inksoft" data-testid="hero-meta">
-                Live from London — Est. 2026
+                Live from London – Est. 2026
               </p>
             </div>
           </FadeIn>
@@ -80,7 +80,7 @@ function Hero() {
           <FadeIn delay={0.5} className="relative w-full">
             <motion.img
               src="/open-house-mark-tight.png"
-              alt="Hand-drawn Open House mark — a little house with an open door"
+              alt="Hand-drawn Open House mark – a little house with an open door"
               style={{ y: imgY }}
               className="mx-auto w-full max-w-md object-contain sm:max-w-lg lg:max-w-xl"
               data-testid="hero-image"
@@ -162,7 +162,7 @@ function ListenSection() {
               </h3>
               <p className="mt-2 font-serifaccent text-xl italic text-sage">music, conversation & whatever walks in</p>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-paper/70 md:text-base">
-                One continuous stream — new shows finding their feet, test broadcasts
+                One continuous stream – new shows finding their feet, test broadcasts
                 and whatever happens next. Press play and keep us company.
               </p>
 
@@ -182,7 +182,7 @@ function ListenSection() {
                     <p className="text-[10px] uppercase tracking-[0.25em] text-sage">Now Playing</p>
                     <p className="mt-1 truncate font-display text-lg font-medium" data-testid="now-playing-title">
                       {now.title}
-                      {now.artist ? ` — ${now.artist}` : ""}
+                      {now.artist ? ` – ${now.artist}` : ""}
                     </p>
                     {now.dj && (
                       <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-paper/50">Live: {now.dj}</p>
@@ -191,7 +191,7 @@ function ListenSection() {
                 </div>
               ) : (
                 <p className="mt-8 border-t border-paper/15 pt-6 text-[10px] uppercase tracking-[0.25em] text-paper/40" data-testid="now-playing-idle">
-                  {now?.onAir ? "On air — track info on its way" : "Currently between broadcasts"}
+                  {now?.onAir ? "On air – track info on its way" : "Currently between broadcasts"}
                 </p>
               )}
             </div>
@@ -224,7 +224,7 @@ function ListenSection() {
               ) : nextEv ? (
                 <p className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
                   <span className="text-sage">Up next</span> · {evLabel(nextEv)} ·{" "}
-                  {`${fmtDay(nextEv.start)} ${fmtDate(nextEv.start)}`} · {fmtTime(nextEv.start)}—
+                  {`${fmtDay(nextEv.start)} ${fmtDate(nextEv.start)}`} · {fmtTime(nextEv.start)}–
                   {fmtTime(nextEv.end)}
                 </p>
               ) : (
@@ -295,7 +295,7 @@ function NextOnSection() {
                       {fmtDay(ev.start)} {fmtDate(ev.start)}
                     </p>
                     <p className="mt-3 font-display text-lg font-medium tracking-tight md:text-xl">
-                      {fmtTime(ev.start)}—{fmtTime(ev.end)}
+                      {fmtTime(ev.start)}–{fmtTime(ev.end)}
                     </p>
                     <p className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">
                       {parts.title}
@@ -316,7 +316,7 @@ function NextOnSection() {
             >
               <CalendarDoodle className="w-40 md:w-48" />
               <p className="max-w-md text-sm leading-relaxed text-inksoft">
-                New shows are landing soon — follow{" "}
+                New shows are landing soon – follow{" "}
                 <a
                   href={INSTAGRAM_URL}
                   target="_blank"
@@ -341,13 +341,13 @@ function CommunitySection() {
       name: "Discord",
       url: DISCORD_URL,
       testId: "discord-card",
-      blurb: "The always-on chat — show ideas, half-ideas, hot takes and whatever's on your mind.",
+      blurb: "The always-on chat – show ideas, half-ideas, hot takes and whatever's on your mind.",
     },
     {
       name: "WhatsApp",
       url: WHATSAPP_URL,
       testId: "whatsapp-card",
-      blurb: "The group chat — quick hellos, what's on, and the day-to-day life of the station.",
+      blurb: "The group chat – quick hellos, what's on, and the day-to-day life of the station.",
     },
   ];
 
@@ -360,7 +360,7 @@ function CommunitySection() {
             Come as you are.
           </h2>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-inksoft md:text-lg">
-            Open House is being built by the people in it — new shows, new people, live
+            Open House is being built by the people in it – new shows, new people, live
             broadcasts, parties, conversations and whatever comes next. Pick a room and
             pull up a chair.
           </p>
@@ -409,7 +409,7 @@ function GetInvolved() {
           <p className="mt-8 max-w-xl text-base leading-relaxed text-paper/70 md:text-lg">
             You don't need to be a DJ, a presenter, or to have any radio experience at all.
             If you've got a genuine passion, something you know loads about, or just an idea
-            you think could make a good show — we want to hear it.
+            you think could make a good show – we want to hear it.
           </p>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/70 md:text-lg">
             No studio. No fancy setup. No experience required. A laptop, a mic and your
@@ -477,7 +477,7 @@ function ContactStrip() {
             "If you care about something, there's probably a show in it."
           </blockquote>
           <p className="mt-6 text-xs uppercase tracking-[0.25em] text-inksoft/60">
-            ps — the kettle is boiling
+            ps – the kettle is boiling
           </p>
         </div>
         <a

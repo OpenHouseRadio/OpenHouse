@@ -52,7 +52,7 @@ export const eventParts = (ev) => {
     host = artist;
   }
   if (!host) {
-    const sep = raw.includes("—") ? "—" : raw.includes(" - ") ? " - " : null;
+    const sep = raw.includes("–") ? "–" : raw.includes(" - ") ? " - " : null;
     if (sep) {
       const parts = raw.split(sep).map((s) => s.trim()).filter(Boolean);
       if (parts.length > 1) {

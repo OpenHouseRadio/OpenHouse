@@ -24,7 +24,7 @@ export default function Schedule() {
         <FadeIn delay={0.1}>
           <p className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sagedeep">
             <span className="h-1.5 w-1.5 rounded-full bg-sagedeep" />
-            The programme — synced live with the studio
+            The programme – synced live with the studio
           </p>
         </FadeIn>
         <h1 className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tighter md:text-[9vw]">
@@ -53,12 +53,12 @@ export default function Schedule() {
                           className="grid grid-cols-[auto_1fr] items-baseline gap-x-8 gap-y-1 border-b border-line/60 py-5 last:border-b-0 md:grid-cols-[200px_1fr_auto]"
                         >
                           <span className="text-sm uppercase tracking-[0.2em] text-inksoft">
-                            {fmtTime(ev.start)}—{fmtTime(ev.end)}
+                            {fmtTime(ev.start)}–{fmtTime(ev.end)}
                           </span>
                           <span className="font-display text-xl font-medium tracking-tight md:text-2xl">
                             {parts.title}
                             {hostShown && (
-                              <span className="font-serifaccent text-lg italic text-inksoft"> — {hostShown}</span>
+                              <span className="font-serifaccent text-lg italic text-inksoft"> – {hostShown}</span>
                             )}
                           </span>
                           <span className="col-span-2 md:col-span-1 md:text-right">
@@ -84,7 +84,7 @@ export default function Schedule() {
           <div className="flex flex-col items-center gap-6 border-y border-line py-16 text-center" data-testid="schedule-empty">
             <CalendarDoodle className="w-44 md:w-56" />
             <p className="max-w-md text-sm leading-relaxed text-inksoft">
-              The programme is being drawn up — follow{" "}
+              The programme is being drawn up – follow{" "}
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
