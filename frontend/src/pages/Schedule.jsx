@@ -50,18 +50,28 @@ export default function Schedule() {
                         <div
                           key={ev.event_id || i}
                           data-testid={`listing-row-${i}`}
-                          className="grid grid-cols-[auto_1fr] items-baseline gap-x-8 gap-y-1 border-b border-line/60 py-5 last:border-b-0 md:grid-cols-[200px_1fr_auto]"
+                          className="flex items-center gap-5 border-b border-line/60 py-5 last:border-b-0"
                         >
-                          <span className="text-sm uppercase tracking-[0.2em] text-inksoft">
-                            {fmtTime(ev.start)}–{fmtTime(ev.end)}
+                          {ev.playlist?.artwork && (
+                            <img
+                              src={ev.playlist.artwork.replace(".100.", ".600.").replace("-100.", "-600.")}
+                              alt={parts.title}
+                              className="h-14 w-14 shrink-0 object-cover md:h-16 md:w-16"
+                              data-testid={`listing-artwork-${i}`}
+                            />
+                          )}
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-sm uppercase tracking-[0.2em] text-inksoft">
+                              {fmtTime(ev.start)}–{fmtTime(ev.end)}
+                            </span>
+                            <span className="mt-1 block font-display text-xl font-medium tracking-tight md:text-2xl">
+                              {parts.title}
+                              {hostShown && (
+                                <span className="font-serifaccent text-lg italic text-inksoft"> – {hostShown}</span>
+                              )}
+                            </span>
                           </span>
-                          <span className="font-display text-xl font-medium tracking-tight md:text-2xl">
-                            {parts.title}
-                            {hostShown && (
-                              <span className="font-serifaccent text-lg italic text-inksoft"> – {hostShown}</span>
-                            )}
-                          </span>
-                          <span className="col-span-2 md:col-span-1 md:text-right">
+                          <span className="hidden sm:block">
                             {live && (
                               <span
                                 className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sagedeep"
@@ -91,7 +101,7 @@ export default function Schedule() {
                 rel="noopener noreferrer"
                 className="link-underline text-sagedeep"
               >
-                @openhouse_world
+                @openhouse_radio
               </a>{" "}
               for the first broadcasts.
             </p>

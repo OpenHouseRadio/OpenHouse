@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, Instagram, Mail, MessagesSquare, MessageCircle } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
-export const INSTAGRAM_URL = "https://www.instagram.com/openhouse_world";
+export const INSTAGRAM_URL = "https://www.instagram.com/openhouse_radio";
 export const CONTACT_EMAIL = "david@openhouseradio.co.uk";
 export const DISCORD_URL = "https://discord.gg/AGsudUcFn";
 export const WHATSAPP_URL = "https://chat.whatsapp.com/Ex5aXILwwxj6mBkxcczlxe?mode=gi_t";

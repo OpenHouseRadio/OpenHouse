@@ -323,7 +323,7 @@ function NextOnSection() {
                   rel="noopener noreferrer"
                   className="link-underline text-sagedeep"
                 >
-                  @openhouse_world
+                  @openhouse_radio
                 </a>{" "}
                 for the first broadcasts.
               </p>
@@ -432,7 +432,7 @@ function GetInvolved() {
               className="flex items-center gap-3 border border-paper/40 px-8 py-4 text-xs uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:border-sage hover:text-sage"
             >
               <Instagram className="h-4 w-4" strokeWidth={1.5} />
-              @openhouse_world
+              @openhouse_radio
             </a>
           </div>
           <p className="mt-8 text-sm text-paper/60">
