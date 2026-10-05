@@ -76,7 +76,7 @@ function Hero() {
           </FadeIn>
         </motion.div>
 
-        <div className="relative flex items-center justify-center lg:col-span-4">
+        <div className="relative hidden items-center justify-center lg:col-span-4 lg:flex">
           <FadeIn delay={0.5} className="relative w-full">
             <motion.img
               src="/open-house-mark-tight.png"
@@ -121,11 +121,20 @@ function ListenSection() {
 
   return (
     <section id="listen" className="mx-auto max-w-[1600px] scroll-mt-24 px-4 py-20 sm:px-8 md:py-32" data-testid="listen-section">
-      <Reveal className="mb-12 md:mb-16">
-        <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">On the air</p>
-        <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="listen-heading">
-          Listen Live
-        </h2>
+      <Reveal className="mb-12 flex items-end justify-between gap-6 md:mb-16">
+        <div>
+          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-sagedeep">On the air</p>
+          <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="listen-heading">
+            Listen Live
+          </h2>
+        </div>
+        <img
+          src="/open-house-mark-tight.png"
+          alt=""
+          aria-hidden="true"
+          className="w-20 sm:w-24 lg:hidden"
+          data-testid="listen-mark"
+        />
       </Reveal>
 
       <Reveal>
