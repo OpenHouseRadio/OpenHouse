@@ -42,8 +42,16 @@ export const eventTitle = (ev) => {
   const raw = (ev?.playlist?.title || ev?.playlist?.name || "").trim();
   return !raw || raw.toLowerCase() === "default" ? "Open House Radio" : raw;
 };
+// Hand corrections for schedule listings — keyed by the playlist title Radio.co sends.
+// Rename the playlist in Radio.co later and these simply stop matching.
+const SCHEDULE_OVERRIDES = {
+  "Jake and Felix": { title: "Painters Podcast", host: "Jake and Felix" },
+};
+
 export const eventParts = (ev) => {
   const raw = (ev?.title || ev?.playlist?.title || ev?.playlist?.name || "").trim();
+  const override = SCHEDULE_OVERRIDES[raw];
+  if (override) return { title: override.title, host: override.host || null };
   const isDefault = !raw || raw.toLowerCase() === "default";
   let title = isDefault ? "Open House Radio" : raw;
   let host = ev?.dj?.name || ev?.dj_name || ev?.presenter || null;

@@ -56,7 +56,7 @@ export default function Schedule() {
                             <img
                               src={ev.playlist.artwork.replace(".100.", ".600.").replace("-100.", "-600.")}
                               alt={parts.title}
-                              className="h-14 w-14 shrink-0 object-cover md:h-16 md:w-16"
+                              className="h-16 w-16 shrink-0 object-cover md:h-24 md:w-24"
                               data-testid={`listing-artwork-${i}`}
                             />
                           )}
