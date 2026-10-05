@@ -14,6 +14,7 @@ import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 import Schedule from "@/pages/Schedule";
 import Archive from "@/pages/Archive";
+import Residents from "@/pages/Residents";
 
 function Hero() {
   const { open, now } = usePlayer();
@@ -548,6 +549,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/schedule" element={<main><Schedule /></main>} />
             <Route path="/archive" element={<main><Archive /></main>} />
+            <Route path="/residents" element={<main><Residents /></main>} />
           </Routes>
           <PlayerSpacer />
           <Footer />

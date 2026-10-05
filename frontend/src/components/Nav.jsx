@@ -40,6 +40,7 @@ export default function Nav() {
   const pageLinks = [
     { to: "/schedule", label: "Schedule", testId: "menu-schedule" },
     { to: "/archive", label: "Archive", testId: "menu-archive" },
+    { to: "/residents", label: "Residents", testId: "menu-residents" },
   ];
 
   return (
@@ -71,6 +72,13 @@ export default function Nav() {
               className="link-underline mr-1 hidden text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
             >
               Archive
+            </Link>
+            <Link
+              to="/residents"
+              data-testid="nav-residents"
+              className="link-underline mr-1 hidden text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
+            >
+              Residents
             </Link>
             <a
               href={INSTAGRAM_URL}
