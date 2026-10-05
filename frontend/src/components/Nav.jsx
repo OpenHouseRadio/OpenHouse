@@ -148,7 +148,7 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[70] bg-paper min-[900px]:hidden"
+            className="fixed inset-0 z-[70] overflow-y-auto overscroll-contain bg-paper min-[900px]:hidden"
           >
             <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-8 md:h-20">
               <img src="/open-house-wordmark.png" alt="Open House" className="h-10 w-auto md:h-12" />
@@ -162,7 +162,7 @@ export default function Nav() {
               </button>
             </div>
 
-            <nav className="px-4 pt-14 sm:px-8">
+            <nav className="px-4 pb-[max(3rem,env(safe-area-inset-bottom))] pt-14 sm:px-8">
               <ul className="space-y-7">
                 {pageLinks.map((l) => (
                   <li key={l.to}>

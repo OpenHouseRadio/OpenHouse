@@ -128,21 +128,14 @@ function ListenSection() {
             Listen Live
           </h2>
         </div>
-        <img
-          src="/open-house-mark-tight.png"
-          alt=""
-          aria-hidden="true"
-          className="w-20 sm:w-24 lg:hidden"
-          data-testid="listen-mark"
-        />
       </Reveal>
 
       <Reveal>
         <div
           data-testid="live-player-module"
-          className="grid overflow-hidden border border-line bg-coal text-paper md:grid-cols-12"
+          className="grid grid-cols-1 overflow-hidden border border-line bg-coal text-paper md:grid-cols-12"
         >
-          <div className="relative flex items-center justify-center overflow-hidden p-10 md:col-span-5 md:p-14">
+          <div className="relative flex min-w-0 items-center justify-center overflow-hidden p-10 md:col-span-5 md:p-14">
             <motion.div
               initial={{ opacity: 0, y: 28, rotate: -2 }}
               whileInView={{ opacity: 1, y: 0, rotate: 0 }}
@@ -154,7 +147,7 @@ function ListenSection() {
             </motion.div>
           </div>
 
-          <div className="flex flex-col justify-between gap-10 p-8 md:col-span-7 md:p-14">
+          <div className="flex min-w-0 flex-col justify-between gap-10 p-8 md:col-span-7 md:p-14">
             <div className="flex items-center justify-between">
               <p className="flex items-center gap-2.5 text-xs uppercase tracking-[0.25em] text-paper/70" data-testid="live-indicator">
                 <span className={`h-2 w-2 rounded-full ${playing ? "animate-pulse-dot bg-red-400" : "bg-sage"}`} />
