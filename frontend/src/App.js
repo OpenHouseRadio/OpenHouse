@@ -9,6 +9,7 @@ import { PlayerProvider, usePlayer, fmtDay, fmtDate, fmtTime, isLiveEvent, upcom
 import Nav, { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PlayerBar from "@/components/PlayerBar";
+import Chatroom from "@/components/Chatroom";
 import Marquee from "@/components/Marquee";
 import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
@@ -554,6 +555,7 @@ function App() {
           <PlayerSpacer />
           <Footer />
           <PlayerBar />
+          <Chatroom />
         </BrowserRouter>
       </PlayerProvider>
     </div>

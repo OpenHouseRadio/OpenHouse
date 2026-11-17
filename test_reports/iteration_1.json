@@ -1,0 +1,41 @@
+{
+  "summary": "Frontend-only testing for Open House Radio SPA. Verified new /residents page (direct URL load, 3 residents with portraits/bios/past shows auto-pulled from Mixcloud), newsletter form in footer (invalid + valid flows, present on all pages, success is simulated by design), Nav behaviour on desktop (1366px) and mobile (375px), mobile menu with Residents link, and mobile regression (no horizontal overflow on /, /schedule, /archive, /residents; hero mark hidden on mobile; visible on desktop). All features working as specified.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "residents.js uses sessionStorage cache without version check beyond key name — if API shape changes, bumping CACHE_KEY is required (already v1, acceptable).",
+    "showsForResident uses substring match on cloudcast name — 'david' as a match token is broad and would catch any cloudcast with 'david' in it; currently acceptable because the OpenHouseWorld account appears to prefix David's cloudcasts with 'david-'. Consider using a more specific prefix match in future to avoid cross-matching when more residents join.",
+    "App.js is 563 lines; sections (Hero, ListenSection, NextOnSection, GetInvolved, CommunitySection, ContactStrip) could be extracted into /pages or /sections for maintainability."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Pure frontend SPA, no backend. REACT_APP_BACKEND_URL points at the preview SPA host. Newsletter is intentionally mocked (lib/newsletter.js ENDPOINT=null) — DO NOT flag as a bug. Mixcloud API returned real cloudcasts: David has 3 past shows surfaced, Painters Podcast has 1 ('Painters Podcast - 000'), MC Sessions correctly shows 'First broadcast landing soon.' empty state. All data-testid selectors used by tests are present and stable.",
+  "verified_scenarios": {
+    "residents_page_direct_load": "PASS",
+    "three_resident_articles_with_correct_copy": "PASS (David/Jake&Felix/Maddie&Chiara, cadences, show titles, roles)",
+    "hand_drawn_svg_portraits": "PASS (6 SVGs found across 3 residents)",
+    "past_shows_mixcloud_pull": "PASS (David=3 real cloudcasts, Painters=1, MC=empty-state message)",
+    "past_show_links_open_mixcloud_new_tab": "PASS (hrefs point to mixcloud.com, target=_blank)",
+    "archive_link": "PASS (href=/archive)",
+    "become_a_resident_mailto": "PASS (mailto:david@openhouseradio.co.uk?subject=...)",
+    "desktop_nav_residents_visible_1366px": "PASS",
+    "mobile_nav_residents_hidden_375px": "PASS",
+    "mobile_menu_lists_schedule_archive_residents_pitch": "PASS",
+    "mobile_menu_residents_navigates_and_closes": "PASS",
+    "newsletter_invalid_email_error_message": "PASS ('That email doesn't look quite right.')",
+    "newsletter_valid_email_success_replaces_form": "PASS ('You're in - talk soon.')",
+    "newsletter_present_on_all_pages": "PASS (/, /schedule, /archive, /residents)",
+    "mobile_no_horizontal_overflow_375px": "PASS (scrollWidth==clientWidth on all 4 routes)",
+    "hero_image_hidden_on_mobile": "PASS",
+    "hero_image_visible_on_desktop_1366px": "PASS"
+  }
+}
