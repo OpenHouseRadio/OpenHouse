@@ -2,7 +2,7 @@ import { useRef } from "react";
 import "@/App.css";
 import Lenis from "lenis";
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Play, Pause, ArrowRight, ArrowUpRight, Instagram, Mail } from "lucide-react";
 import { PlayerProvider, usePlayer, fmtDay, fmtDate, fmtTime, isLiveEvent, upcomingEvents, eventParts } from "@/lib/player";
@@ -15,7 +15,6 @@ import { MaskedLine, FadeIn, Reveal } from "@/components/Reveal";
 import { RadioDoodle, DoorDoodle, CalendarDoodle } from "@/components/Doodle";
 import Schedule from "@/pages/Schedule";
 import Archive from "@/pages/Archive";
-import Residents from "@/pages/Residents";
 
 function Hero() {
   const { open, now } = usePlayer();
@@ -497,16 +496,62 @@ function ContactStrip() {
   );
 }
 
+function NewsletterSection() {
+  return (
+    <section id="newsletter" className="scroll-mt-24 border-t border-line" data-testid="newsletter-section">
+      <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-8 md:py-28">
+        <Reveal>
+          <h2 className="font-display text-4xl font-bold tracking-tight md:text-6xl" data-testid="newsletter-heading">
+            Newsletter
+          </h2>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-inksoft md:text-lg">
+            What's coming up, new shows, and the odd thing we're into. Straight to your inbox.
+          </p>
+          <div className="mt-8 max-w-xl">
+            <iframe
+              src="https://openhouseradio.substack.com/embed"
+              width="100%"
+              height="150"
+              style={{ border: "none", background: "transparent" }}
+              frameBorder="0"
+              scrolling="no"
+              loading="lazy"
+              title="Open House newsletter signup"
+              data-testid="substack-embed"
+            />
+            <a
+              href="https://openhouseradio.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="newsletter-archive-link"
+              className="link-underline mt-2 inline-block text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink"
+            >
+              Read past posts →
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function PlayerSpacer() {
   const { on } = usePlayer();
   return on ? <div className="h-24" aria-hidden="true" data-testid="player-spacer" /> : null;
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -520,6 +565,7 @@ function Landing() {
       <GetInvolved />
       <CommunitySection />
       <ContactStrip />
+      <NewsletterSection />
     </main>
   );
 }
@@ -550,7 +596,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/schedule" element={<main><Schedule /></main>} />
             <Route path="/archive" element={<main><Archive /></main>} />
-            <Route path="/residents" element={<main><Residents /></main>} />
+            <Route path="/residents" element={<Navigate to="/" replace />} />
           </Routes>
           <PlayerSpacer />
           <Footer />

@@ -40,7 +40,7 @@ export default function Nav() {
   const pageLinks = [
     { to: "/schedule", label: "Schedule", testId: "menu-schedule" },
     { to: "/archive", label: "Archive", testId: "menu-archive" },
-    { to: "/residents", label: "Residents", testId: "menu-residents" },
+    { to: "/#newsletter", label: "Newsletter", testId: "menu-newsletter" },
   ];
 
   return (
@@ -74,11 +74,11 @@ export default function Nav() {
               Archive
             </Link>
             <Link
-              to="/residents"
-              data-testid="nav-residents"
+              to="/#newsletter"
+              data-testid="nav-newsletter"
               className="link-underline mr-1 hidden text-xs uppercase tracking-[0.2em] text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
             >
-              Residents
+              Newsletter
             </Link>
             <a
               href={INSTAGRAM_URL}
@@ -176,6 +176,7 @@ export default function Nav() {
                   <li key={l.to}>
                     <Link
                       to={l.to}
+                      onClick={() => setMenuOpen(false)}
                       data-testid={l.testId}
                       className={`font-display text-[40px] font-bold leading-none tracking-tight text-ink ${
                         pathname.startsWith(l.to) ? "underline decoration-1 underline-offset-[6px]" : ""

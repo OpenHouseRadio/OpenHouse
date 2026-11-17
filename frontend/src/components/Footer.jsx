@@ -1,6 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
 import { INSTAGRAM_URL, CONTACT_EMAIL, DISCORD_URL, WHATSAPP_URL } from "./Nav";
-import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
@@ -16,15 +15,6 @@ export default function Footer() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-inksoft">
               Independent online radio – currently taking shape. Open House is open.
             </p>
-          </div>
-
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-inksoft">The occasional letter</p>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-inksoft">
-              New shows, parties and Open House news – straight to your inbox when
-              there's something worth saying. Never noise.
-            </p>
-            <NewsletterForm />
           </div>
 
           <div>
