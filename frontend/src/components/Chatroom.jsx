@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, ArrowUpRight } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
 const CHATANGO_SRC = "https://st.chatango.com/js/gz/emb.js";
+// Full-page mobile web client – used on phones, where iOS Safari bounces
+// the embedded iframe out to the Chatango site anyway.
+const MOBILE_CHAT_URL = "https://openhouseworld.chatango.com/";
 // Chatango embed config for openhouseworld, kept exactly as provided.
 const CHATANGO_CONFIG =
   '{"handle":"openhouseworld","arch":"js","styles":{"a":"CC0000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"CC0000","l":"CC0000","m":"CC0000","n":"FFFFFF","p":"10","q":"CC0000","r":100,"fwtickm":1}}';
@@ -28,6 +31,12 @@ export default function Chatroom() {
   }, [everOpened]);
 
   const openChat = () => {
+    // Phones: open the full Chatango room in a new tab (the in-page embed
+    // gets hijacked into a redirect by iOS Safari). Desktop: inline panel.
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      window.open(MOBILE_CHAT_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
     setEverOpened(true);
     setOpen(true);
   };
@@ -47,14 +56,26 @@ export default function Chatroom() {
               <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} />
               Chatroom
             </p>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="Close chat"
-              data-testid="chatroom-close-btn"
-              className="p-1 text-paper/70 transition-colors duration-300 hover:text-paper"
-            >
-              <X className="h-4 w-4" strokeWidth={1.5} />
-            </button>
+            <div className="flex items-center">
+              <a
+                href={MOBILE_CHAT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open full chat in a new tab"
+                data-testid="chatroom-fullscreen-link"
+                className="p-1 text-paper/70 transition-colors duration-300 hover:text-paper"
+              >
+                <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+              </a>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                data-testid="chatroom-close-btn"
+                className="p-1 text-paper/70 transition-colors duration-300 hover:text-paper"
+              >
+                <X className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
           <div ref={boxRef} className="h-[350px] w-[250px] overflow-hidden" data-testid="chatroom-embed" />
         </div>
