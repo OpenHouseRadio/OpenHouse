@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, Instagram, Mail, MessagesSquare, MessageCircle } from "lucide-react";
+import { Play, Pause, Instagram, Mail } from "lucide-react";
 import { usePlayer } from "../lib/player";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/openhouse_radio";
@@ -97,26 +97,6 @@ export default function Nav() {
               className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
             >
               <Mail className="h-[18px] w-[18px]" strokeWidth={1.5} />
-            </a>
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="nav-discord"
-              aria-label="Open House on Discord"
-              className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
-            >
-              <MessagesSquare className="h-[18px] w-[18px]" strokeWidth={1.5} />
-            </a>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="nav-whatsapp"
-              aria-label="Open House on WhatsApp"
-              className="hidden p-2 text-inksoft transition-colors duration-300 hover:text-ink min-[900px]:block"
-            >
-              <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
             </a>
             <button
               onClick={toggle}
